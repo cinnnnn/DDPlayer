@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".widgets.LoginActivity">
+   <View
+       android:id="@+id/status_Bar"
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:background="@color/colorPrimary"
+       />
+    <androidx.appcompat.widget.Toolbar
+        android:layout_below="@id/status_Bar"
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_60"
+        app:titleTextColor="#ffffff"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:title="登录"
+        app:navigationIcon="@mipmap/ic_back"
+        >
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/linear_container"
+        android:orientation="horizontal"
+        android:layout_below="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_128">
+        <ImageView
+            android:id="@+id/img_22"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:src="@mipmap/ic_22"
+            />
+        <ImageView
+            android:id="@+id/img_small_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_bili_logo"
+            android:scaleType="centerInside"
+            />
+        <ImageView
+            android:id="@+id/img_33"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:src="@mipmap/ic_33"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/linear_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <EditText
+            android:id="@+id/etv_username"
+            android:layout_marginStart="@dimen/qb_px_32"
+            android:layout_marginEnd="@dimen/qb_px_32"
+            android:drawableStart="@drawable/ic_login_username_default"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_64"
+             />
+
+        <EditText
+            android:inputType="textWebPassword"
+            android:layout_below="@id/etv_username"
+            android:layout_marginTop="@dimen/qb_px_20"
+            android:id="@+id/etv_passwd"
+            android:layout_marginStart="@dimen/qb_px_32"
+            android:layout_marginEnd="@dimen/qb_px_32"
+            android:drawableStart="@drawable/ic_login_password_default"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_64"
+            />
+
+        <TextView
+            android:id="@+id/btn_login"
+            android:layout_below="@id/etv_passwd"
+            android:layout_marginTop="@dimen/qb_px_32"
+            android:layout_marginLeft="@dimen/qb_px_32"
+            android:layout_marginRight="@dimen/qb_px_32"
+            android:background="@color/colorPrimary"
+            android:text="登录"
+            android:textColor="#ffffff"
+            android:textSize="22sp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_64"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
