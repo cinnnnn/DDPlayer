@@ -14,5 +14,6 @@
         android:minHeight="40dp"
         android:text="(＞﹏＜)   卖力加载中～"
         android:textColor="#9EA4AF"
+        android:visibility="gone"
         android:textSize="14sp" />
 </LinearLayout>

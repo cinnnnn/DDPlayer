@@ -1,5 +1,5 @@
 package top.bilibililike.ddplayer.mvp.homeRecommend;
 
 public interface IRecommendModel {
-    void getData(boolean isRefresh);
+    void getAvData(boolean isRefresh);
 }

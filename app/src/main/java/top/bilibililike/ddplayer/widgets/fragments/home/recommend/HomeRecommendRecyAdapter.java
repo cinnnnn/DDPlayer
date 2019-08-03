@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +20,11 @@ import top.bilibililike.ddplayer.base.BaseRecycleViewAdapter;
 import top.bilibililike.ddplayer.entity.AvListBean;
 
 public class HomeRecommendRecyAdapter extends BaseRecycleViewAdapter {
+
+    @Override
+    protected int getFooterViewResource() {
+        return 0;
+    }
 
 
 
@@ -32,7 +38,10 @@ public class HomeRecommendRecyAdapter extends BaseRecycleViewAdapter {
             if (mList == null || mList.size() == 0) {
                 this.mList = (List<AvListBean.DataBean.ItemsBean>)bean;
             } else if (isRefresh){
-                mList.clear();
+                List<AvListBean.DataBean.ItemsBean> newList = new ArrayList<>();
+                newList.addAll((List<AvListBean.DataBean.ItemsBean>) bean);
+                newList.addAll(mList);
+                this.mList = newList;
             } else {
                 this.mList.addAll((List<AvListBean.DataBean.ItemsBean>) bean);
             }

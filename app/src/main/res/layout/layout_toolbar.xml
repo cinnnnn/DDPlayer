@@ -4,11 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/qb_px_60"
-    android:background="?attr/colorPrimary"
-    app:contentInsetStart="0dp"
+    android:layout_height="@dimen/qb_px_48"
+    android:background="#66ccff"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     >
     <ImageView
         android:id="@+id/imv_drawer_switch"
@@ -19,7 +17,7 @@
         />
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_toEndOf="@id/imv_drawer_switch"
-        android:layout_centerVertical="true"
+        
         android:layout_marginStart="@dimen/qb_px_16"
         android:id="@+id/imv_avatar"
         android:layout_width="@dimen/qb_px_40"
@@ -27,6 +25,7 @@
         android:src="@mipmap/ico_user_default"
         />
     <ImageView
+        
         android:id="@+id/imv_search"
         android:layout_width="@dimen/qb_px_128"
         android:layout_height="match_parent"
@@ -54,7 +53,7 @@
         android:layout_width="@dimen/qb_px_32"
         android:layout_height="@dimen/qb_px_32"
         android:layout_toStartOf="@id/imv_ic2"
-        android:layout_centerVertical="true"
+        
         android:src="@mipmap/ic_danmuku_nums"
         android:layout_marginEnd="@dimen/qb_px_16"
         android:visibility="invisible"
@@ -68,7 +67,7 @@
         android:layout_width="@dimen/qb_px_32"
         android:layout_height="@dimen/qb_px_32"
         android:layout_toStartOf="@id/imv_ic3"
-        android:layout_centerVertical="true"
+        
         android:src="@mipmap/ic_danmuku_nums"
         android:layout_marginEnd="@dimen/qb_px_16"
         android:visibility="invisible"
@@ -82,7 +81,7 @@
         android:layout_width="@dimen/qb_px_32"
         android:layout_height="@dimen/qb_px_32"
         android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
+        
         android:src="@mipmap/ic_danmuku_nums"
         android:layout_marginEnd="@dimen/qb_px_16"
         android:visibility="invisible"

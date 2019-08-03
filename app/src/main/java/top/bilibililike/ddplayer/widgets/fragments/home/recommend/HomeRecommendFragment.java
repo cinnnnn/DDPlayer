@@ -6,6 +6,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,19 +58,12 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
             presenter.loadData(true);
         });
 
-       /* refreshLayout.setOnLoadMoreListener(refreshLayout -> {
+        refreshLayout.setOnLoadMoreListener(refreshLayout -> {
 
-            Toast.makeText(getContext(),"refreshLayout 加载更多了",Toast.LENGTH_SHORT).show();
-            //todo logic of loadMore
-        });*/
-
-        adapter.setMoreListener(new BaseRecycleViewAdapter.AutoMoreListener() {
-            @Override
-            public void load() {
-                Toast.makeText(getContext(),"adapter 加载更多了",Toast.LENGTH_SHORT).show();
-                presenter.loadData(false);
-            }
+            Toast.makeText (getContext(),"refreshLayout 加载更多了",Toast.LENGTH_SHORT).show();
+             presenter.loadData(false);
         });
+
 
 
 
@@ -85,26 +80,21 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
     @Override
     public void getDataSuccess(Object bean,boolean isRefresh) {
         if (bean instanceof List){
-            Log.d("HomeRecommendFramgent","转系成功");
+            Log.d("HomeRecommendFragment","转系成功");
             this.itemsBeans = (List<AvListBean.DataBean.ItemsBean>) bean;
-            List<AvListBean.DataBean.ItemsBean> deleteBean = new ArrayList<>();
-            for (int i = 0; i < itemsBeans.size(); i++) {
-                if (itemsBeans.get(i).getCard_goto() .equals("av")){
-
-                }else {
-                    deleteBean.add(itemsBeans.get(i));
-                }
-            }
-            for (int i = 0; i < deleteBean.size(); i++) {
-                itemsBeans.remove(deleteBean.get(i));
-            }
             adapter.notifyDataChanged(itemsBeans,isRefresh);
         }
-        Log.d("HomeRecommendFramgent","数据加载完成");
+        if (isRefresh){
+            refreshLayout.finishRefresh();
+        }else {
+            refreshLayout.finishLoadMore();
+        }
+        Log.d("HomeRecommendFragment","数据加载完成");
     }
 
     @Override
     public void getDataFailed(String arg) {
         Toast.makeText(getContext(), arg, Toast.LENGTH_SHORT).show();
+        refreshLayout.finishRefresh();
     }
 }

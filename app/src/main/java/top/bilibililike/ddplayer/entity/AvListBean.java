@@ -666,7 +666,7 @@ public class AvListBean  {
                  * extra : {"use_ad_web_v2":true,"show_urls":[],"click_urls":[],"download_whitelist":[],"open_whitelist":[],"card":{"card_type":3,"title":"献给热爱FGO的你","covers":[{"url":"https://i0.hdslb.com/bfs/sycp/creative_img/201907/bf8d098b3943940fbbe7a229c0bf92bb.jpg_640x400.jpg","loop":0}],"jump_url":"https://cm.bilibili.com/cm/api/fees/wise/redirect?ad_cb=COjNBhDA9RgY656kCiAyKAEw0DA46w5CITE1NjQ2NTQ3MTczODhxMTcyYTIyYTYwYTIzNnExNTY0MUjMk8HlxC1SBuWohOW6lVoG5rmW5Y2XYgbkuK3lm71oAXAAeICAgIDgBIABA4gBAJIBDjM2LjE1Ny4xNzguMTgxmgGwBGFsbDpkZWZhdWx0LGVjcG06ZGVmYXVsdCxjcGNUYWdGaWx0ZXI6dW5kZWZpbmVkLGVuaGFuY2VDdHJRRmFjdG9yOnNxdWFyZSxwbGF5cGFnZWN0cjplbmFibGVfY29uc3RhbnQsdXBfcmVjX2Zsb3dfY29udHJvbDp1bmRlZmluZWQsYnJ1c2hfZHVwbGljYXRlOmRlZmF1bHQscGN0cl9jcG06Y3BtLHBjdHJfdjI6bHJfY29uc3RhbnQsZHluYW1pY19mbG93X2NvbnRyb2w6c3BsaXQgdGhlIGZsb3cgYnkgbWlkLHBjdnI6ZGxkLGZyZXFMaW1pdDpkZWZhdWx0LHNtYWxsQ29uc3VtZVVuaXQ6ZGVmYXVsdCxvdXRlckJlYXRJbm5lcjpkZWZhdWx0LG91dGVyUXVpdDpkZWZhdWx0LGZkc19ydHQ6OCxjcGE6Y3BhXzMwZCxpbmRpc19VVjp1bmRlZmluZWQsaGFzaF9pbmRpc19VVjp1bmRlZmluZWQsZmVlZHNfcmFuZG9tX3Jlc3VsdDpkZWZhdWx0LGZsb3dfcmF0aW9fY2hlY2s6cjMsYmFzZV9oYXNoX2luZGlzX1VWOnVuZGVmaW5lZCxjdHJfdHJ1bmNhdGlvbl9leHA6dHJ1bmNhdGlvbl8xNTAsZG1wX2FnZV9leHA6dW5kZWZpbmVkLGNvbGRfYm9vdF9leHA6ZGVmYXVsdCxwbGF0Zm9ybTpkZWZhdWx0oAEyqAEtsgEgkDuw0OrDHgDt6D6Tg9G2PUuOCJy0p%2F%2BxxNcqVhORml26AWlodHRwczovL3Jlcy5jYy5jbWJpbWcuY29tL2l0YWZyb250L0Zyb2cvaW5kZXguaHRtbCMvbG9naW4vYXBpc2NmZ28vcmVtb3RlP3dlYkFkZHJlc3M9TjM3MDBNTTIwOTE0MTk5MDAwYmnCAaEBMjk1MF8xMjYyXzc0OF83MDJfNjQyXzU1OF81MTBfNDE4XzQxOF80MTJfNDEyXzQxMl80MDhfNDA4XzQwOF8zOThfMzk4XzM0OV8zNDlfMzQ5XzM0OV8zNDlfMzQ5XzMzOF8zMzhfMzM4XzMzOF8zMzhfMzM4XzMzM18zMjlfMzI5XzMyOV8zMjlfMzI5XzI5M18yOTNfMTUwXzE1MF8xMTPSAQDYASbgAcCaDOgBwJoM8AEA%2BAEygAICiAIAkgLnAjQxOTU4N18xNTY0NjQ4MTAwLDQxMzI1Ml8xNTY0NjQ4MTA5LDM3ODQxOV8xNTY0NjQ4MTE1LDQwNjAxN18xNTY0NjQ4MTUyLDM0NTQ2M18xNTY0NjQ4NDAxLDQxNDcyM18xNTY0NjQ4NDA5LDQwOTQwM18xNTY0NjQ4NDM1LDQxNTU5NF8xNTY0NjQ4NDUyLDQxNzMzNF8xNTY0NjQ4NDU2LDQxMDI2NV8xNTY0NjQ4NDYwLDQxMTAxOV8xNTY0NjQ4NDY0LDQxNDcyM18xNTY0NjQ4NDY4LDM1NTU0OF8xNTY0NjQ4NDcxLDQwOTQwM18xNTY0NjQ4NDg0LDQwNjE1N18xNTY0NjQ4NTA4LDQxOTY3N18xNTY0NjQ4NjIwLDQwNTk5MF8xNTY0NjQ4NjQ3LDM3ODQxOV8xNTY0NjQ5MzQ4LDQxODY1Ml8xNTY0NjQ5MzQ4LDQxODY3MV8xNTY0NjQ5Mzk0mAKpnCagArcZqAK%2B6ROwAo8NuAIAwAIAyAIA0AIA2AIA6gIA8AIA%2BAIAqAMA","desc":"招商银行","callup_url":"","long_desc":"","ad_tag":"","extra_desc":"","ad_tag_style":{"type":2,"text":"广告","text_color":"#999999FF","bg_border_color":"#999999FF"},"feedback_panel":{"panel_type_text":"广告","feedback_panel_detail":[{"text":"我不想看到这个广告","module_id":1,"jump_type":1,"icon_url":"https://i0.hdslb.com/bfs/sycp/mng/201907/a53df8f189bb12666a39d10ad1babcf5.png","jump_url":"","secondary_panel":[{"text":"不感兴趣","reason_id":1},{"text":"相似内容过多","reason_id":2},{"text":"广告质量差","reason_id":5}]},{"text":"举报","module_id":2,"jump_type":2,"icon_url":"https://i0.hdslb.com/bfs/sycp/mng/201907/2bc344ad3510da5cfdc7c7714abaeda4.png","jump_url":"http://cm.bilibili.com/ldad/light/ad-complain.html","secondary_panel":[]},{"text":"我为什么会看到此广告","module_id":3,"jump_type":2,"icon_url":"https://i0.hdslb.com/bfs/sycp/mng/201907/82480c4ef205c9b715d6e2ea7f5c4041.png","jump_url":"http://cm.bilibili.com/ldad/light/ad-introduce.html","secondary_panel":[]}]}},"report_time":2000,"sales_type":12,"special_industry":false,"special_industry_tips":"","preload_landingpage":0,"enable_download_dialog":false,"share_info":{}}
                  */
 
-                private int creative_id;
+                private String creative_id;
                 private int creative_type;
                 private int card_type;
                 private CreativeContentBean creative_content;
@@ -682,11 +682,11 @@ public class AvListBean  {
                 private String client_ip;
                 private ExtraBean extra;
 
-                public int getCreative_id() {
+                public String getCreative_id() {
                     return creative_id;
                 }
 
-                public void setCreative_id(int creative_id) {
+                public void setCreative_id(String creative_id) {
                     this.creative_id = creative_id;
                 }
 

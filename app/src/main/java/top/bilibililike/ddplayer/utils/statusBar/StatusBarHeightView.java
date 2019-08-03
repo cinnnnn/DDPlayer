@@ -62,4 +62,5 @@ public class StatusBarHeightView extends LinearLayout {
         }
     }
 
+
 }

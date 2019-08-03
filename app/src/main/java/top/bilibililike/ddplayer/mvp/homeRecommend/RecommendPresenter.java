@@ -2,8 +2,6 @@ package top.bilibililike.ddplayer.mvp.homeRecommend;
 
 import java.util.List;
 
-import top.bilibililike.ddplayer.entity.AvListBean;
-
 public class RecommendPresenter<T> {
     private IRecommendView mView;
     private IRecommendModel mModel;
@@ -13,13 +11,13 @@ public class RecommendPresenter<T> {
     }
 
     public void loadData(boolean isRefresh){
-        mModel.getData(isRefresh);
+        mModel.getAvData(isRefresh);
     }
 
     public void loadListSuccess(T bean,boolean isRefresh){
         if (bean instanceof List){
             mView.getDataSuccess(bean,isRefresh);
-        }else loadListFailed("bean不是ItemBean");
+        }else loadListFailed("bean不是ItemList");
     }
 
     public void loadListFailed(String arg){
