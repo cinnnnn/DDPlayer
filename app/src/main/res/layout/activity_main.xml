@@ -40,7 +40,7 @@
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <top.bilibililike.ddplayer.utils.statusBar.StatusBarHeightView
             android:id="@+id/status_Bar"
-            android:background="#9322f1"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"

@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import top.bilibililike.ddplayer.entity.LoginBean;
 import top.bilibililike.ddplayer.entity.TokenBean;
 
 public interface LoginService {
@@ -17,12 +18,9 @@ public interface LoginService {
     );
 
     @FormUrlEncoded
-    @POST("api/v3/oauth2/login")
-    Call<TokenBean> getDataCall(@Field("username") String username,
-                                @Field("password") String password,
-                                @Field("ts") String ts
-
-    );
+    @POST("api/oauth2/getKey")
+    Observable<LoginBean> login(@Field("username") String username,
+                                @Field("password") String password);
 
 
 

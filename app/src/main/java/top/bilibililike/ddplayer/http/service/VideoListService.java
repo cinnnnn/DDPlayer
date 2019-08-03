@@ -1,6 +1,7 @@
 package top.bilibililike.ddplayer.http.service;
 
 import io.reactivex.Observable;
+import kotlin.jvm.Synchronized;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import top.bilibililike.ddplayer.entity.AvListBean;

@@ -2,6 +2,7 @@ package top.bilibililike.ddplayer.widgets;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,7 +54,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         initStatus(statusBar);
         initToolBar();
         initEggs();
-        loginBtn.setOnClickListener(v -> presenter.getHash());
+        loginBtn.setOnClickListener(v -> presenter.login());
         initData();
     }
 
@@ -93,14 +94,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
-    public void getHashField() {
-        Toast.makeText(this,"请检查网络",Toast.LENGTH_SHORT).show();
+    public void getHashField(String reason) {
+        Log.d("LoginActivity","getHashFailed:"+reason);
     }
 
-    @Override
-    public void getHashSuccess() {
-        presenter.login();
-    }
 
     @Override
     public void loginField(String arg) {
@@ -109,10 +106,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void loginSuccess() {
-        Toast.makeText(this,"登录成功,你好",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,"登录成功,你好",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
         intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-        startActivityForResult(intent,EVENT_LOGIN);
+        intent.putExtra("EVENT",EVENT_LOGIN);
+        startActivity(intent);
+
         finish();
     }
 

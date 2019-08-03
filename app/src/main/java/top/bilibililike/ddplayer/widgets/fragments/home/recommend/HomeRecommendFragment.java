@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.R;
@@ -26,9 +27,9 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
 
-    List<AvListBean.DataBean.ItemsBean> itemsBeans;
-    HomeRecommendRecyAdapter adapter;
-    RecommendPresenter<AvListBean> presenter;
+    private HomeRecommendRecyAdapter adapter;
+    private RecommendPresenter<AvListBean> presenter;
+    private List<AvListBean.DataBean.ItemsBean> beanList;
 
     @Override
     public void finishCreateView(Bundle state) {
@@ -59,8 +60,6 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
         });
 
         refreshLayout.setOnLoadMoreListener(refreshLayout -> {
-
-            Toast.makeText (getContext(),"refreshLayout 加载更多了",Toast.LENGTH_SHORT).show();
              presenter.loadData(false);
         });
 
@@ -78,11 +77,17 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
 
 
     @Override
-    public void getDataSuccess(Object bean,boolean isRefresh) {
-        if (bean instanceof List){
-            Log.d("HomeRecommendFragment","转系成功");
-            this.itemsBeans = (List<AvListBean.DataBean.ItemsBean>) bean;
-            adapter.notifyDataChanged(itemsBeans,isRefresh);
+    public void getDataSuccess(Object beanList,boolean isRefresh) {
+        if (beanList instanceof List){
+            this.beanList = new ArrayList<>();
+            for (AvListBean.DataBean.ItemsBean item:(List<AvListBean.DataBean.ItemsBean>)beanList
+                 ) {
+                if (item.getCard_goto().equals("av")){
+                    this.beanList.add(item);
+                }
+            }
+            adapter.notifyDataChanged(this.beanList,isRefresh);
+
         }
         if (isRefresh){
             refreshLayout.finishRefresh();
@@ -96,5 +101,10 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
     public void getDataFailed(String arg) {
         Toast.makeText(getContext(), arg, Toast.LENGTH_SHORT).show();
         refreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void getDataFailed() {
+        Toast.makeText(getContext(), "请求列表失败", Toast.LENGTH_SHORT).show();
     }
 }

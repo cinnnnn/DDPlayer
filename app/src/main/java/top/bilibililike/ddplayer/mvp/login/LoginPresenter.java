@@ -10,20 +10,19 @@ public class LoginPresenter {
     }
 
     public void login(){
-        mModel.doLogin(mView.getUsername(),mView.getPassword());
+        //mModel.doLogin(mView.getUsername(),mView.getPassword());
+        mModel.login(mView.getUsername(),mView.getPassword());
     }
 
-    public void getHash(){
+   /* public void getHash(){
         mModel.getHash();
-    }
+    }*/
 
     public void getHashFailed(String reason){
-        mView.getHashField();
+        mView.getHashField(reason);
     }
 
-    public void getHashSuccess(){
-        mView.getHashSuccess();
-    }
+
 
     public void loginSuccess(){
         mView.loginSuccess();

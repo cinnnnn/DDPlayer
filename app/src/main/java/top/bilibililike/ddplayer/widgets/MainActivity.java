@@ -48,6 +48,7 @@ import top.bilibililike.ddplayer.widgets.fragments.DynamicFragment;
 import top.bilibililike.ddplayer.widgets.fragments.MallFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.HomeFragment;
 
+import static top.bilibililike.ddplayer.utils.StatusCode.EVENT_DEFAULT;
 import static top.bilibililike.ddplayer.utils.StatusCode.EVENT_LOGIN;
 
 public class MainActivity extends BaseActivity implements IUserInfoView {
@@ -60,12 +61,13 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
     NavigationView mainNavView;
     @BindView(R.id.main_drawer_layout)
     DrawerLayout mainDrawerLayout;
+
     @BindView(R.id.appbar_layout)
     AppBarLayout appbarLayout;
 
-    ImageView avatarIv ;
-    TextView nickNameTv ;
-    TextView coinTv ;
+    ImageView avatarIv;
+    TextView nickNameTv;
+    TextView coinTv;
 
 
     List<BaseFragment> fragmentList;
@@ -173,30 +175,29 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
 
     private void initBottomNav() {
         bottomNav.setOnNavigationItemSelectedListener(menuItem -> {
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_home:
-                        container.setCurrentItem(0, false);
-                        setToolbar(0);
-                        break;
-                    case R.id.nav_channel:
-                        container.setCurrentItem(1, false);
-                        setToolbar(1);
-                        break;
-                    case R.id.nav_dynamic:
-                        container.setCurrentItem(2, false);
-                        setToolbar(2);
-                        break;
-                    case R.id.nav_mall:
-                        container.setCurrentItem(3, false);
-                        setToolbar(3);
-                }
-
+            switch (menuItem.getItemId()) {
+                case R.id.nav_home:
+                    container.setCurrentItem(0, false);
+                    setToolbar(0);
+                    break;
+                case R.id.nav_channel:
+                    container.setCurrentItem(1, false);
+                    setToolbar(1);
+                    break;
+                case R.id.nav_dynamic:
+                    container.setCurrentItem(2, false);
+                    setToolbar(2);
+                    break;
+                case R.id.nav_mall:
+                    container.setCurrentItem(3, false);
+                    setToolbar(3);
+            }
 
 
             return true;
         });
         bottomNav.setOnNavigationItemReselectedListener(menuItem -> {
-            Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_gradient_transform);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_gradient_transform);
             switch (menuItem.getItemId()) {
                 case R.id.nav_home:
                     fragmentList.get(0).notifyDataSetChanged();
@@ -220,18 +221,18 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
 
     private void initStatus() {
         //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
-        StatusBarUtil.setRootViewFitsSystemWindows(this,false);
+        StatusBarUtil.setRootViewFitsSystemWindows(this, false);
         //设置状态栏透明
         StatusBarUtil.setTranslucentStatus(this);
         //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
         //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
-       // if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
-            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
-            //这样半透明+白=灰, 状态栏的文字能看得清
-          //  StatusBarUtil.setStatusBarColor(this,0x55000000);
-    //    }
+        // if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+        //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+        //这样半透明+白=灰, 状态栏的文字能看得清
+        //  StatusBarUtil.setStatusBarColor(this,0x55000000);
+        //    }
 
-       /* *//*
+        /* *//*
             在布局顶部有一个高度为0 的View  background设置的是 和 toolbar 一样的颜色
             通过appbar的折叠状态监听 调整这个View 的 高度 实现透明状态栏
             TODO： 现在会有一种突兀感  后期加上动画效果应该好点
@@ -265,7 +266,6 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         });*/
 
 
-
     }
 
     private void initSlideNav() {
@@ -275,65 +275,60 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         coinTv = view.findViewById(R.id.tv_coins);
 
         avatarIv.setOnClickListener(view1 -> {
-            if (infoBean == null || tokenBean == null){
+            if (infoBean == null || tokenBean == null) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }else {
-                startActivity(new Intent(MainActivity.this,UserDetailActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, UserDetailActivity.class));
             }
 
         });
 
         nickNameTv.setOnClickListener(view2 -> {
-            if (infoBean == null || tokenBean == null){
+            if (infoBean == null || tokenBean == null) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }else {
-                startActivity(new Intent(MainActivity.this,UserDetailActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, UserDetailActivity.class));
             }
         });
     }
 
 
-    private void initToolbar(){
-        View toolbar = findViewById(R.id.toolbar);
+    private void initToolbar() {
+        /*View toolbar = findViewById(R.id.toolbar);
         AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
         params.topMargin = StatusBarUtil.getStatusBarHeight(this);
-        toolbar.setLayoutParams(params);
+        toolbar.setLayoutParams(params);*/
         setToolbar(0);
-        imvDrawerSwitch.setOnClickListener( v -> {
-            if (!mainDrawerLayout.isDrawerOpen(Gravity.LEFT)){
+        imvDrawerSwitch.setOnClickListener(v -> {
+            if (!mainDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
                 mainDrawerLayout.openDrawer(Gravity.LEFT);
             }
 
-        });
-        imvDrawerSwitch.setOnClickListener( v -> {
-            if (!mainDrawerLayout.isDrawerOpen(Gravity.LEFT)){
-                mainDrawerLayout.openDrawer(Gravity.LEFT);
-            }
         });
     }
 
-    private void initData(){
+    private void initData() {
         presenter = new UserInfoPresenter(this);
         try {
-            this.tokenBean = LitePal.find(TokenBean.DataBean.TokenInfoBean.class,1);
-            this.infoBean = LitePal.find(UserInfoBean.DataBean.class,1);
-        }catch (Exception ignored){
+            this.tokenBean = LitePal.find(TokenBean.DataBean.TokenInfoBean.class, 1);
+            this.infoBean = LitePal.find(UserInfoBean.DataBean.class, 1);
+        } catch (Exception ignored) {
 
         }
-        if (tokenBean != null && infoBean != null && infoBean.getName() != null){
+        if (tokenBean != null && infoBean != null && infoBean.getName() != null) {
             loadData();
-            Log.d("MainActivity ","加载老数据");
+            Log.d("MainActivity ", "加载老数据");
 
         }
-        if (tokenBean != null && tokenBean.getAccess_token() != null){
+        if (tokenBean != null && tokenBean.getAccess_token() != null) {
             presenter.loadUserInfo();
-            Log.d("MainActivity ","加载新数据");
+            Log.d("MainActivity ", "加载新数据");
         }
     }
 
     private void setToolbar(int position) {
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_gradient_transform);
-        if (position == 0){
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_gradient_transform);
+        if (position == 0) {
             //首页
             imvIc1.setVisibility(View.VISIBLE);
             imvIc2.setVisibility(View.VISIBLE);
@@ -353,7 +348,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
             // imvIc2.setImageDrawable();
             // imvIc3.setImageDrawable();
 
-        }else if (position == 2) {
+        } else if (position == 2) {
             //动态
             imvSearch.setVisibility(View.INVISIBLE);
             imvIc1.setVisibility(View.INVISIBLE);
@@ -364,7 +359,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
             tvTitle.startAnimation(animation);
             //todo 加上资源文件
             // imvIc3.setImageDrawable();
-        }else if (position == 3) {
+        } else if (position == 3) {
             //会员购
             imvSearch.setVisibility(View.INVISIBLE);
             imvIc1.setVisibility(View.INVISIBLE);
@@ -380,8 +375,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
     }
 
 
-
-    private void loadData(){
+    private void loadData() {
 
         Glide.with(this)
                 .load(infoBean.getFace())
@@ -392,21 +386,20 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         nickNameTv.setText(infoBean.getName());
         int bCoin = infoBean.getBcoin();
         double coin = infoBean.getCoin();
-        coinTv.setText("B币："+bCoin+" 硬币："+coin);
+        coinTv.setText("B币：" + bCoin + " 硬币：" + coin);
 
     }
 
 
-
     @Override
     public void updateUserInfoSuccess() {
-        this.infoBean = LitePal.find(UserInfoBean.DataBean.class,1);
+        this.infoBean = LitePal.find(UserInfoBean.DataBean.class, 1);
         loadData();
     }
 
     @Override
     public void updateUserInfoFailed(String arg) {
-        Toast.makeText(this,arg,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, arg, Toast.LENGTH_SHORT).show();
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -440,19 +433,30 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == EVENT_LOGIN) {
-                mainDrawerLayout.closeDrawer(Gravity.LEFT);
+        //启动方式为 singleTask 的Activity 这个方法会自动cancel 所以说 没啥用 留着长记性
+        Toast.makeText(this, requestCode, Toast.LENGTH_SHORT).show();
+        if (requestCode == EVENT_LOGIN) {
 
-                refreshFragmentsData();
-                loadData();
-                Toast.makeText(this,"startActivityForResult Success",Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this,"startActivityForResult failed",Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, "EVENT_LOGIN Success", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "EVENT_LOGIN failed", Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
-
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        int event = intent.getIntExtra("EVENT",EVENT_DEFAULT);
+        if (event == EVENT_LOGIN){
+            mainDrawerLayout.closeDrawer(Gravity.LEFT);
+            refreshFragmentsData();
+           initData();
+        }
+    }
 }
+
+
+

@@ -23,10 +23,12 @@ import java.util.LinkedHashMap;
 import javax.crypto.Cipher;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -49,15 +51,15 @@ import static top.bilibililike.ddplayer.utils.Api.LOGIN_HOST;
 
 public class LoginModel implements ILoginModel {
     private LoginPresenter presenter;
-    private LoginBean bean;
 
-    private String cookie;
+
+
 
     LoginModel(LoginPresenter presenter) {
         this.presenter = presenter;
     }
 
-    @Override
+  /*  @Override
     public void doLogin(String username, String password) {
         LinkedHashMap<Object, Object> headerMap = new LinkedHashMap<>();
         headerMap.put("Cookie", cookie);
@@ -172,6 +174,81 @@ public class LoginModel implements ILoginModel {
 
 
     }
+*/
+    @Override
+    public void login(String username, String password) {
+        LinkedHashMap<Object, Object> headerMap = new LinkedHashMap<>();
+        OkHttpClient client = new OkHttpClient()
+                .newBuilder()
+                .addNetworkInterceptor(chain -> {
+
+                    String cookie;
+                    Request request = chain.request();
+                    Response response = chain.proceed(request);
+                    cookie = response.header("Set-Cookie");
+                    if (cookie != null && cookie.contains(";")) {
+                        cookie = cookie.split(";")[0];
+                        headerMap.put("Cookie", cookie);
+                    }
+                    return response;
+                })
+                .addInterceptor(new HeaderInterceptor(headerMap))
+                .addInterceptor(new PostInterceptor())
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(LOGIN_HOST)
+                .client(client)
+                .build();
+        LoginService service = retrofit.create(LoginService.class);
+        service.login(username,password)
+                .flatMap(new Function<LoginBean, Observable<TokenBean>>() {
+                    @Override
+                    public Observable<TokenBean> apply(LoginBean loginBean) {
+                        if (loginBean.getCode() == 0){
+                            return service.getData(username,getPassword(password,loginBean),loginBean.getTs()+"");
+                        }else {
+                            presenter.getHashFailed(loginBean.getMessage());
+                        }
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<TokenBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(TokenBean tokenBean) {
+                        if (tokenBean == null || tokenBean.getCode() != 0) {
+                            presenter.loginFailed(tokenBean.getMessage());
+                        } else {
+                            presenter.loginSuccess();
+                            if (LitePal.find(TokenBean.DataBean.TokenInfoBean.class, 1) == null) {
+                                tokenBean.getData().getToken_info().save();
+                            } else {
+                                tokenBean.getData().getToken_info().update(1);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        //presenter.loginFailed(e.toString());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
 
 
     private String getKey(String publicKey) {
@@ -186,7 +263,7 @@ public class LoginModel implements ILoginModel {
         return result.toString();
     }
 
-    private String getPassword(String password) {
+    private String getPassword(String password,LoginBean bean) {
         //  deal with passWord
         String hash = bean.getData().getHash();
         String publicKey = getKey(bean.getData().getKey());
@@ -209,6 +286,8 @@ public class LoginModel implements ILoginModel {
 
         return finalPassword;
     }
+
+
 
 
 }
