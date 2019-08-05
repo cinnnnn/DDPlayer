@@ -1,7 +1,9 @@
 package top.bilibililike.ddplayer.widgets.fragments.home.recommend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,6 +21,7 @@ import top.bilibililike.ddplayer.base.BaseRecycleViewAdapter;
 import top.bilibililike.ddplayer.entity.AvListBean;
 import top.bilibililike.ddplayer.mvp.homeRecommend.IRecommendView;
 import top.bilibililike.ddplayer.mvp.homeRecommend.RecommendPresenter;
+import top.bilibililike.ddplayer.widgets.PlayAvActivity;
 
 
 public class HomeRecommendFragment extends BaseFragment implements IRecommendView {
@@ -61,6 +64,17 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
 
         refreshLayout.setOnLoadMoreListener(refreshLayout -> {
              presenter.loadData(false);
+        });
+
+        adapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, Object entity) {
+                AvListBean.DataBean.ItemsBean itemBean = (AvListBean.DataBean.ItemsBean) entity;
+                Intent intent = new Intent(getActivity(), PlayAvActivity.class);
+                intent.putExtra("av",itemBean.getArgs().getAid());
+                startActivity(intent);
+
+            }
         });
 
 

@@ -42,6 +42,7 @@ import top.bilibililike.ddplayer.entity.UserInfoBean;
 import top.bilibililike.ddplayer.mvp.userInfo.UserInfoPresenter;
 import top.bilibililike.ddplayer.utils.AppBarStateChangeListener;
 import top.bilibililike.ddplayer.utils.GradientPageTransformer;
+import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
 import top.bilibililike.ddplayer.utils.statusBar.StatusBarUtil;
 import top.bilibililike.ddplayer.widgets.fragments.ChannelFragment;
 import top.bilibililike.ddplayer.widgets.fragments.DynamicFragment;
@@ -402,24 +403,6 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         Toast.makeText(this, arg, Toast.LENGTH_SHORT).show();
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private List<BaseFragment> list;
-
-        ViewPagerAdapter(FragmentManager fm, List<BaseFragment> list) {
-            super(fm);
-            this.list = list;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return list.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-    }
 
     @Override
     public void onBackPressed() {

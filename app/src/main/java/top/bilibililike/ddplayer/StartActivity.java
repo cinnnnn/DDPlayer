@@ -13,6 +13,7 @@ import top.bilibililike.ddplayer.entity.TokenBean;
 import top.bilibililike.ddplayer.entity.UserInfoBean;
 import top.bilibililike.ddplayer.utils.Api;
 import top.bilibililike.ddplayer.widgets.MainActivity;
+import top.bilibililike.ddplayer.widgets.PlayAvActivity;
 
 public class StartActivity extends BaseActivity {
 
@@ -32,6 +33,7 @@ public class StartActivity extends BaseActivity {
         //init defaultNetworkParams
         Api.initParams();
         startActivity(new Intent(StartActivity.this, MainActivity.class));
+       // startActivity(new Intent(StartActivity.this, PlayAvActivity.class));
         finish();
     }
 

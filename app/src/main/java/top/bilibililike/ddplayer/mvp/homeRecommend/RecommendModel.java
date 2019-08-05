@@ -29,7 +29,7 @@ public class RecommendModel implements IRecommendModel {
     public RecommendModel(RecommendPresenter presenter){
         this.mPresenter = presenter;
     }
-    private List<AvListBean.DataBean.ItemsBean> itemList;
+
 
     @Override
     public void getAvData(boolean isRefresh) {
@@ -46,29 +46,6 @@ public class RecommendModel implements IRecommendModel {
 
         VideoListService service = retrofit.create(VideoListService.class);
 
-        Subscriber<AvListBean.DataBean.ItemsBean> subscriber = new Subscriber<AvListBean.DataBean.ItemsBean>() {
-            @Override
-            public void onSubscribe(Subscription s) {
-
-            }
-
-            @Override
-            public void onNext(AvListBean.DataBean.ItemsBean itemsBean) {
-                if (itemList == null) itemList = new ArrayList<>();
-                if (itemsBean.getCard_goto().equals("av")) itemList.add(itemsBean);
-                mPresenter.loadListSuccess(itemList, isRefresh);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
 
 
         service.getRecommendList("0")
@@ -104,7 +81,7 @@ public class RecommendModel implements IRecommendModel {
                     }
                     @Override
                     public void onError(Throwable e) {
-
+                        mPresenter.loadListFailed(e.toString());
                     }
                     @Override
                     public void onComplete() {

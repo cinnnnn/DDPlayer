@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.base.BaseFragment;
 import top.bilibililike.ddplayer.R;
+import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
 import top.bilibililike.ddplayer.widgets.fragments.home.bangumi.HomeBangumiFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.hot.HomeHotFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.live.HomeLiveFragment;
@@ -81,6 +82,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initTabLayout(){
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.removeAllTabs();
         tabLayout.addTab(tabLayout.newTab().setText("直播"));
         tabLayout.addTab(tabLayout.newTab().setText("推荐"));
         tabLayout.addTab(tabLayout.newTab().setText("热门"));
@@ -104,21 +107,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-        private List<BaseFragment> list;
-        ViewPagerAdapter(FragmentManager fm, List<BaseFragment> list) {
-            super(fm);
-            this.list = list;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return list.get(position);
-        }
-        @Override
-        public int getCount() {
-            return list.size();
-        }
-    }
+
 
 
 
