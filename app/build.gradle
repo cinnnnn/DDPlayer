@@ -72,13 +72,14 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation "com.squareup.okhttp3:okhttp:4.0.1"
-    implementation project(path: ':viewLibrary')
 
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-32'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-32'
 
-    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-    implementation project(path: ':ddplayer')
+    implementation 'com.shuyu:gsyVideoPlayer-java:7.0.2'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:7.0.2'
+    implementation project(path: ':viewLibrary')
+
+    implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0'
 
 }

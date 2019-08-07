@@ -14,6 +14,9 @@ public class Api {
     public static final String API_HOST = "https://api.bilibili.com";
 
     public static final String appsecret = "560c52ccd288fed045859ed18bffd973";
+    public static final String videosecret = "aHRmhWMLkdeMuILqORnYZocwMBpMEOdt";
+
+
     public static final String appkey = "1d8b6e7d45233436";
     public static final String build = "5410000";
     public static final String channel = "bili";

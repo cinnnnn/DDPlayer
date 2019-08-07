@@ -23,10 +23,14 @@
         >
         <activity android:name=".widgets.UserDetailActivity"></activity>
         <activity android:name=".widgets.LoginActivity" />
-        <activity android:name=".widgets.PlayAvActivity" />
+        <activity android:name=".widgets.PlayAvActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <service android:name=".service.avAudioService"/>
         <activity
             android:name=".widgets.MainActivity"
             android:launchMode="singleTask"></activity>
+
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
