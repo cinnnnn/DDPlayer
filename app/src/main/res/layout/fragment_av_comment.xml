@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+    <top.bilibililike.ddplayer.customedView.videoView.MultiSampleVideo
+        android:id="@+id/av_player"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="comment"
-        android:textSize="433sp"
-        />
+        android:layout_height="@dimen/qb_px_208">
+
+    </top.bilibililike.ddplayer.customedView.videoView.MultiSampleVideo>
 </androidx.core.widget.NestedScrollView>

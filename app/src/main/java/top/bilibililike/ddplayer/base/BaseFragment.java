@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T> extends Fragment {
     private Unbinder bind;
 
     @Override
@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroy();
     }
 
-    public abstract void notifyDataSetChanged();
+    public abstract void notifyDataSetChanged(T... t);
 
 
 }

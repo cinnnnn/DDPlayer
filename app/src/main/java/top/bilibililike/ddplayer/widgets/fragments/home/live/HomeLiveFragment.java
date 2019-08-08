@@ -17,7 +17,7 @@ public class HomeLiveFragment extends BaseFragment {
     }
 
     @Override
-    public void notifyDataSetChanged() {
+    public void notifyDataSetChanged(Object[] t) {
 
-    }
+}
 }

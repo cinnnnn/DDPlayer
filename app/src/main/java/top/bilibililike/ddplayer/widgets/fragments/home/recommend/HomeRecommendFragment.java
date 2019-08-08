@@ -46,9 +46,10 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
     }
 
     @Override
-    public void notifyDataSetChanged() {
+    public void notifyDataSetChanged(Object[] t) {
         loadData(true);
     }
+
 
     private void initRecyclerView(){
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));

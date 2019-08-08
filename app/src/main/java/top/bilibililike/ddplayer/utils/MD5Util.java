@@ -76,8 +76,11 @@ public class MD5Util{
     }
 
 
-    static String data1 = "appkey=1d8b6e7d45233436&build=5410000&channel=bili&mobi_app=android&password=EswgGllZX0yIY91C83I2gfFH7KtM1G8zhX2zYWAo54VleP31aQLFuXm1I0xlNS7n0pjsOFBp6eY0%0AWrF%2FQecgCqHRAlWBwx9S2YcT2luC%2BBPRC00%2FXoQwoQCBtbpohgUQW2bnOJTuF6Vu70WvsOaSWD2S%0Abix%2F8QAjPFFka5QZWkA%3D%0A&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%225.41.0%22%2C%22abtest%22%3A%22%22%7D&ts=1564458462&username=17670530020";
-    static String result1 = "1f9834a1b04369011aef4b91125bfc13";
+    static String data1 = "access_key=e089ec788fc0cd8c8e9355972aa47a81&ad_extra=0&aid=62579255&appkey=1d8b6e7d45233436&autoplay=0&build=5410000&channel=bili&fnval=16&fnver=0&force_host=0&fourk=0&from=7&from_spmid=tm.recommend.0.0&mobi_app=android&plat=0&platform=android&qn=32&spmid=0&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%225.41.0%22%2C%22abtest%22%3A%22%22%7D&trackid=all_16.shylf-ai-recsys-87.1564645385020.392&ts=1565204459";
+
+    static String result1 = "cc1afb9a0c08992ac3c3ecbfbb6d4550";
+
+
     static String data2 = "appkey=1d8b6e7d45233436&build=5410000&channel=bili&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%225.41.0%22%2C%22abtest%22%3A%22%22%7D&ts=1564458461";
     static String result2 = "4d56ac05164408b88f58102b4258d076";
 

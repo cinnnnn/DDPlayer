@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        doBeforeSetContent();
         setContentView(getLayoutId());
        // initStatusBar();
         bind = ButterKnife.bind(this);
@@ -70,4 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         params.height = StatusBarUtil.getStatusBarHeight(this);
         view.setLayoutParams(params);
     }
+
+    protected void doBeforeSetContent(){
+
+    };
 }

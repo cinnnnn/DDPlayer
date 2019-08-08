@@ -166,7 +166,6 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
         if (getMoreLoadLayoutResId() > 0) {
             count += 1;
         }
-        Log.d("RecyclerViewAdapter","count = "+count);
         return count;
     }
 

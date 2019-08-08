@@ -25,7 +25,8 @@
         <activity android:name=".widgets.LoginActivity" />
         <activity android:name=".widgets.PlayAvActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            />
         <service android:name=".service.avAudioService"/>
         <activity
             android:name=".widgets.MainActivity"
