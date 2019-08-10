@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_156"
+        />
+
+    <LinearLayout
+        android:paddingTop="@dimen/qb_px_12"
+        android:paddingBottom="@dimen/qb_px_12"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_100">
+        <LinearLayout
+            android:id="@+id/bangumi_liner"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            >
+            <ImageView
+                android:paddingTop="@dimen/qb_px_12"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/qb_px_48"
+                android:src="@drawable/bangumi_follow_home_ic_mine"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="番剧"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/timetable_liner"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            >
+            <ImageView
+                android:paddingTop="@dimen/qb_px_12"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/qb_px_48"
+                android:src="@drawable/bangumi_follow_home_ic_timeline"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="时间表"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/index_liner"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            >
+            <ImageView
+                android:paddingTop="@dimen/qb_px_12"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/qb_px_48"
+                android:src="@drawable/bangumi_follow_home_ic_index"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="索引"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

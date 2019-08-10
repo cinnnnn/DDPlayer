@@ -2,9 +2,10 @@ package top.bilibililike.ddplayer.http.service;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
-import top.bilibililike.ddplayer.entity.AVDetailBean;
-import top.bilibililike.ddplayer.entity.AVUrlBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiUrlBean;
 
 public interface PlayAVService {
     @GET("/x/v2/view")
@@ -42,8 +43,12 @@ public interface PlayAVService {
                                    @Query("fnver") String fnver,
                                    @Query("buvid") String buvid,
                                    @Query("spmid") String spmid*/
-
-
     );
+
+    @GET("pgc/view/app/season")
+    Observable<BangumiDetailBean> getBangumiDetail();
+
+    @GET("pgc/player/api/playurl")
+    Observable<BangumiUrlBean> getBangumiUrl();
 
 }

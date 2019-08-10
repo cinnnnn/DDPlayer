@@ -1,5 +1,6 @@
 package top.bilibililike.ddplayer.base;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.MultiDex;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -74,4 +76,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void doBeforeSetContent(){
 
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        MultiDex.install(this);
+    }
 }

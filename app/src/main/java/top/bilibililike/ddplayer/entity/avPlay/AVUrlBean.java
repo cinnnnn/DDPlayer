@@ -1,4 +1,4 @@
-package top.bilibililike.ddplayer.entity;
+package top.bilibililike.ddplayer.entity.avPlay;
 
 import java.util.List;
 
@@ -81,8 +81,12 @@ public class AVUrlBean {
         private String seek_param;
         private String seek_type;
         private DashBean dash;
+
         private int no_rexcode;
         private List<String> accept_description;
+        private List<DurlBean> durl;
+
+
         private List<Integer> accept_quality;
 
         public String getFrom() {
@@ -188,6 +192,15 @@ public class AVUrlBean {
         public void setDash(DashBean dash) {
             this.dash = dash;
         }
+
+        public List<DurlBean> getDurl() {
+            return durl;
+        }
+
+        public void setDurl(List<DurlBean> durl) {
+            this.durl = durl;
+        }
+
 
         public int getNo_rexcode() {
             return no_rexcode;
@@ -343,6 +356,63 @@ public class AVUrlBean {
                 public void setBackup_url(List<String> backup_url) {
                     this.backup_url = backup_url;
                 }
+            }
+        }
+
+        public static class DurlBean{
+
+            /**
+             * order : 1
+             * length : 270164
+             * size : 28094374
+             * url : http://upos-hz-mirrorks3u.acgvideo.com/upgcxcode/10/51/11295110/11295110-1-32.flv?e=ig8euxZM2rNcNbNB7zUVhoMg7WuBhwdEto8g5X10ugNcXBlqNCNEto8g5gNvNE3DN0B5tZlqNxTEto8BTrNvN05fqx6S5ahE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IB5QK==&deadline=1565442427&gen=playurl&nbs=1&oi=614315316&os=ks3u&platform=android&trid=4ea35d2324834e6e931f6251678f035c&uipk=5&upsig=00e91220351ece6e160c9e2c45b9f813&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0
+             * backup_url : ["http://upos-hz-mirrorcosu.acgvideo.com/upgcxcode/10/51/11295110/11295110-1-32.flv?e=ig8euxZM2rNcNbNB7zUVhoMg7WuBhwdEto8g5X10ugNcXBlqNCNEto8g5gNvNE3DN0B5tZlqNxTEto8BTrNvN05fqx6S5ahE9IMvXBvE2ENvNCImNEVEK9GVqJIwqa80WXIekXRE9IB5QK==&deadline=1565442427&gen=playurl&nbs=1&oi=614315316&os=cosu&platform=android&trid=4ea35d2324834e6e931f6251678f035c&uipk=5&upsig=4b4340c388712e28cddb199329d33ac8&uparams=e,deadline,gen,nbs,oi,os,platform,trid,uipk&mid=0"]
+             */
+
+            private int order;
+            private int length;
+            private int size;
+            private String url;
+            private List<String> backup_url;
+
+            public int getOrder() {
+                return order;
+            }
+
+            public void setOrder(int order) {
+                this.order = order;
+            }
+
+            public int getLength() {
+                return length;
+            }
+
+            public void setLength(int length) {
+                this.length = length;
+            }
+
+            public int getSize() {
+                return size;
+            }
+
+            public void setSize(int size) {
+                this.size = size;
+            }
+
+            public String getUrl() {
+                return url;
+            }
+
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
+            public List<String> getBackup_url() {
+                return backup_url;
+            }
+
+            public void setBackup_url(List<String> backup_url) {
+                this.backup_url = backup_url;
             }
         }
     }
