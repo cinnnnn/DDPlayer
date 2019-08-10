@@ -31,14 +31,17 @@ import top.bilibililike.ddplayer.base.BaseActivity;
 import top.bilibililike.ddplayer.base.BaseFragment;
 import top.bilibililike.ddplayer.customedView.videoView.CustomManager;
 import top.bilibililike.ddplayer.customedView.videoView.MultiSampleVideo;
-import top.bilibililike.ddplayer.entity.AVDetailBean;
-import top.bilibililike.ddplayer.entity.AVUrlBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiUrlBean;
 import top.bilibililike.ddplayer.mvp.playAV.IPlayAVView;
 import top.bilibililike.ddplayer.mvp.playAV.PlayAVPresenter;
 import top.bilibililike.ddplayer.utils.AppBarStateChangeListener;
 import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.AvCommentFragment;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.AvIntroductionFragment;
+import top.bilibililike.ddplayer.widgets.fragments.avDetail.BangumiIntroductionFragment;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 import static com.shuyu.gsyvideoplayer.video.base.GSYVideoView.CURRENT_STATE_AUTO_COMPLETE;
@@ -71,6 +74,8 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     private boolean isPlay = true;
 
     String aid;
+    String season;
+    int index;
 
     PlayAVPresenter mPresenter;
     GSYVideoViewBridge avManager;
@@ -92,14 +97,15 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
 
     @Override
     public void initViews(Bundle savedInstanceState) {
-        aid = getIntent().getIntExtra("av", 62693988) + "";
+        Intent intent = getIntent();
+        aid = intent.getIntExtra("av", 62693988) + "";
+        season = intent.getIntExtra("season", 0) + "";
+        index = intent.getIntExtra("index",0);
         initBasicView();
         initFragmentAndViewPager();
         initTabLayout();
         initPlayer();
         initData();
-
-
     }
 
     private void initBasicView() {
@@ -132,12 +138,14 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         }
 
         try {
-            mAppBarDisposable = Observable.interval(500, 800, TimeUnit.MILLISECONDS)
+            mAppBarDisposable = Observable.interval(500, 1000, TimeUnit.MILLISECONDS)
                     .takeWhile(bool -> isPlay)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aLong -> {
-                        if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
+                       if (avPlayer == null ){
+
+                       } else  if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
                             if (params.getScrollFlags() != AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) {
                                 params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
                                 collapsingToolbar.setLayoutParams(params);
@@ -174,7 +182,12 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         } else {
             fragmentList.clear();
         }
-        fragmentList.add(new AvIntroductionFragment());
+        if (!season.equals("0")){
+            fragmentList.add(new BangumiIntroductionFragment());
+        }else {
+            fragmentList.add(new AvIntroductionFragment());
+        }
+
         fragmentList.add(new AvCommentFragment());
         viewpager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
 
@@ -240,21 +253,19 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     }
 
     private void loadPlayer(String avUrl, String audioUrl) {
-
-        audioPlayer.setUp(audioUrl, true, "音频测试");
+        // avUrl = "http://183.236.60.80:7793/wsconnect?2407526888&3451096147&7216&0";
+        if (!audioUrl.equals("null")){
+            audioPlayer.setUp(audioUrl, true, "音频测试");
+            audioPlayer.startAfterPrepared();
+        }
         avPlayer.setUp(avUrl, true, "播放测试");
-
-
         avPlayer.startAfterPrepared();
-        audioPlayer.startAfterPrepared();
-
-
         //ijk关闭log
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
         try {
             if (avPlayer.isStartAfterPrepared() && audioPlayer.isStartAfterPrepared()) {
                 mVideoDisposable = Observable
-                        .interval(3000, 500, TimeUnit.MILLISECONDS)
+                        .interval(3000, 300, TimeUnit.MILLISECONDS)
                         .takeWhile(aLong -> isPlay)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(aLong -> {
@@ -262,7 +273,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                             long audioCurrent = audioPlayer.getGSYVideoManager().getCurrentPosition();
                             Log.d("playav", "avManager current = " + avCurrent);
                             float temp;
-                            if (Math.abs(audioCurrent - avCurrent) > 1000 && avPlayer.getCurrentState() != CURRENT_STATE_AUTO_COMPLETE) {
+                            if (Math.abs(audioCurrent - avCurrent) > 500 && avPlayer.getCurrentState() != CURRENT_STATE_AUTO_COMPLETE) {
                                 audioManager.seekTo(avCurrent);
                                 Log.d("Plav", "seek *1 " + audioCurrent + "\n " + avCurrent);
 
@@ -287,7 +298,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                                 avPlayer.setSeekTo(-1);
                             }
 
-                            if (!avPlayer.isIfCurrentIsFullscreen()){
+                            if (!avPlayer.isIfCurrentIsFullscreen()) {
                                 if (avPlayer.getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
                                     audioPlayer.onVideoPause();
                                 } else if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
@@ -299,7 +310,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                                     }
 
                                 }
-                            }else {
+                            } else {
                                 if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
                                     audioPlayer.onVideoPause();
                                 } else if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING) {
@@ -312,20 +323,10 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
 
                                 }
                             }
-
-
-
-
-
-
-                   /* Log.d("PlayAvActivity ","playerPo = "+avPlayer.getCurrentTime());
-                    Log.d("PlayAvActivity ","playerTotol = "+avPlayer.getTotalTime());
-                    Log.d("PlayAvActivity ","audioPo = "+audioPlayer.getCurrentTime());
-                    Log.d("PlayAvActivity ","audioTotol = "+audioPlayer.getTotalTime());*/
                         });
             }
 
-        }catch (NullPointerException e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -334,7 +335,12 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
 
     private void initData() {
         mPresenter = new PlayAVPresenter(this);
-        mPresenter.getAvDetailData(getAid());
+        if (!season.equals("0")){
+            mPresenter.getBangumiDetailData(season,index);
+        }else {
+            mPresenter.getAvDetailData(getAid());
+        }
+
     }
 
 
@@ -353,8 +359,8 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CustomManager.clearAllVideo();
         isPlay = false;
+        CustomManager.clearAllVideo();
     }
 
 
@@ -364,8 +370,25 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
             Log.d("Playav", "aid null 了");
             aid = "61837347";
         }
-
         return aid;
+    }
+
+    @Override
+    public String getSeason() {
+        if (season == null) {
+            Log.d("PlayBangumi", "season null 了");
+            season = "61837347";
+        }
+        return season;
+    }
+
+    @Override
+    public int getIndex() {
+        if (season == null) {
+            Log.d("PlayBangumi", "index null 了");
+            index = 0;
+        }
+        return index;
     }
 
 
@@ -383,17 +406,23 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
 
     @Override
     public void getAVUrlSuccess(AVUrlBean.DataBean dataBean) {
-        Log.d("Playav AVUrlSuccess", dataBean.getResult());
-        List<AVUrlBean.DataBean.DashBean.VideoBean> dashList = dataBean.getDash().getVideo();
-        AVUrlBean.DataBean.DashBean.VideoBean videoBean = dashList.get(0);
-        for (AVUrlBean.DataBean.DashBean.VideoBean bean : dashList
-        ) {
-            if (bean.getId() == 32) videoBean = bean;
-        }
-        loadPlayer(videoBean.getBase_url(), dataBean.getDash().getAudio().get(0).getBase_url());
+        if (dataBean.getDash() != null) {
+            Log.d("Playav AVUrlSuccess", dataBean.getResult());
+            List<AVUrlBean.DataBean.DashBean.VideoBean> dashList = dataBean.getDash().getVideo();
+            AVUrlBean.DataBean.DashBean.VideoBean videoBean = dashList.get(0);
+            for (AVUrlBean.DataBean.DashBean.VideoBean bean : dashList
+            ) {
+                if (bean.getId() == 32) videoBean = bean;
+            }
+            loadPlayer(videoBean.getBase_url(), dataBean.getDash().getAudio().get(0).getBase_url());
 
-        fragmentList.get(1).notifyDataSetChanged(videoBean.getBase_url(), dataBean.getDash().getAudio().get(0).getBase_url());
-        Log.d("Playav", videoBean.getBase_url());
+            fragmentList.get(1).notifyDataSetChanged(videoBean.getBase_url(), dataBean.getDash().getAudio().get(0).getBase_url());
+            Log.d("Playav", videoBean.getBase_url());
+        } else {
+            loadPlayer(dataBean.getDurl().get(0).getUrl(),"null");
+            Log.d("Playav", dataBean.getDurl().get(0).getUrl());
+        }
+
     }
 
     @Override
@@ -402,8 +431,51 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     }
 
     @Override
+    public void getBangumiDetailSuccess(BangumiDetailBean.ResultBean dataBean) {
+        avPlayer.loadCoverImage(dataBean.getCover(),R.mipmap.ic_22);
+        fragmentList.get(0).notifyDataSetChanged(dataBean);
+    }
+
+    @Override
+    public void getBangumiDetailFailed(String message) {
+        Log.d("Playav BangumiDetFailed",message);
+    }
+
+    @Override
+    public void getBangumiUrlSuccess(BangumiUrlBean.DashBean dataBean) {
+        loadPlayer(dataBean.getVideo().get(0).getBaseUrl(),dataBean.getAudio().get(0).getBaseUrl());
+
+    }
+
+    @Override
+    public void getBangumiUrlSuccess(BangumiUrlBean.DurlBean dataBean) {
+        loadPlayer(dataBean.getUrl(),"null");
+    }
+
+
+
+    @Override
+    public void getBangumiUrlFailed(String message) {
+        Log.d("Playav BangumiUrlFailed",message);
+    }
+
+
+    @Override
     protected void onNewIntent(Intent intent) {
-        aid = getIntent().getIntExtra("av", 62693988) + "";
+        Intent intent1 = getIntent();
+        aid = intent1.getIntExtra("av", 62693988) + "";
+        season = intent1.getIntExtra("season",0)+"";
+        index = intent1.getIntExtra("index",0);
         super.onNewIntent(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (avPlayer.isIfCurrentIsFullscreen()) {
+            avPlayer.getFullWindowPlayer().getFullscreenButton().performClick();
+        } else {
+            super.onBackPressed();
+        }
+
     }
 }

@@ -1,26 +1,32 @@
 package top.bilibililike.ddplayer.mvp.playAV;
 
+import android.media.session.PlaybackState;
 import android.util.Log;
+
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import top.bilibililike.ddplayer.entity.AVDetailBean;
-import top.bilibililike.ddplayer.entity.AVUrlBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
+import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiUrlBean;
 import top.bilibililike.ddplayer.http.interceptor.AVDetailInterceptor;
 import top.bilibililike.ddplayer.http.interceptor.AVUrlInterceptor;
+import top.bilibililike.ddplayer.http.interceptor.GetInterceptor;
 import top.bilibililike.ddplayer.http.interceptor.HeaderInterceptor;
 import top.bilibililike.ddplayer.http.service.PlayAVService;
 
+import static top.bilibililike.ddplayer.utils.Api.API_HOST;
 import static top.bilibililike.ddplayer.utils.Api.APP_HOST;
 
 public class PlayAVModel implements IPlayAVModel {
@@ -114,6 +120,99 @@ public class PlayAVModel implements IPlayAVModel {
 
     @Override
     public void getAVComment() {
+
+    }
+
+    @Override
+    public void getBangumiData(String season,int index) {
+
+        HashMap<String,String> detailMap = new HashMap<>();
+        detailMap.put("season_id",season);
+        GetInterceptor getInterceptor = new GetInterceptor(detailMap);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(getInterceptor)
+                .addInterceptor(new HeaderInterceptor())
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(API_HOST)
+                .build();
+        PlayAVService avService = retrofit.create(PlayAVService.class);
+        avService.getBangumiDetail()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<BangumiDetailBean, BangumiDetailBean>() {
+                    @Override
+                    public BangumiDetailBean apply(BangumiDetailBean bangumiDetailBean) throws Exception {
+                        if (bangumiDetailBean.getCode() == 0){
+                            mPresenter.getBangumiDetailSuccess(bangumiDetailBean.getResult());
+                            return bangumiDetailBean;
+                        }else {
+                            mPresenter.getBangumiDetailFailed(bangumiDetailBean.getMessage());
+                            return null;
+                        }
+
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .flatMap((Function<BangumiDetailBean, Observable<BangumiUrlBean>>) bangumiDetailBean -> {
+                    Log.d("PlayAvModel FlatMapThre",Thread.currentThread().toString());
+                    if (bangumiDetailBean.getCode() == 0){
+                        if (bangumiDetailBean.getResult().getLimit() == null){
+                            HashMap<String,String> hashMap = new HashMap<>();
+                            hashMap.put("aid",bangumiDetailBean.getResult().getEpisodes().get(index).getAid()+"");
+                            hashMap.put("cid",bangumiDetailBean.getResult().getEpisodes().get(index).getCid()+"");
+                            hashMap.put("otype","json");
+                            getInterceptor.replaceParam(hashMap);
+                            return avService.getBangumiUrl();
+                        }else {
+                            //todo  跳转海外请求
+                        }
+
+                    }
+                    return null;
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(urlBean ->{
+                    Log.d("PlayAvModel MapThread",Thread.currentThread().toString());
+                    if (urlBean.getCode() == 0){
+                        if (urlBean.getDash() != null){
+                            mPresenter.getBangumiUrlSuccess(urlBean.getDash());
+                        }else if (urlBean.getDurl() != null){
+                            mPresenter.getBangumiUrlSuccess(urlBean.getDurl().get(0));
+                        }
+                    }else {
+                        mPresenter.getBangumiUrlFailed(urlBean.getMessage());
+                        return urlBean;
+                    }
+                    return null;
+                })
+                .subscribe(new Observer<BangumiUrlBean>() {
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(BangumiUrlBean urlBean) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 }

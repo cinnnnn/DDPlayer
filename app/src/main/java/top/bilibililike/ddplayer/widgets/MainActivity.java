@@ -47,6 +47,7 @@ import top.bilibililike.ddplayer.utils.statusBar.StatusBarUtil;
 import top.bilibililike.ddplayer.widgets.fragments.ChannelFragment;
 import top.bilibililike.ddplayer.widgets.fragments.DynamicFragment;
 import top.bilibililike.ddplayer.widgets.fragments.MallFragment;
+import top.bilibililike.ddplayer.widgets.fragments.avDetail.BangumiIntroductionFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.HomeFragment;
 
 import static top.bilibililike.ddplayer.utils.StatusCode.EVENT_DEFAULT;
@@ -114,7 +115,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         initSlideNav();
         //初始化toolbar 参数是fragment的下标
         initToolbar();
-
+        initClicks();
         initData();
 
     }
@@ -125,7 +126,8 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
             fragmentList.add(new HomeFragment());
             fragmentList.add(new ChannelFragment());
             fragmentList.add(new DynamicFragment());
-            fragmentList.add(new MallFragment());
+            fragmentList.add(new BangumiIntroductionFragment());
+            //fragmentList.add(new MallFragment());
             container.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         }
     }
@@ -414,30 +416,23 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        //启动方式为 singleTask 的Activity 这个方法会自动cancel 所以说 没啥用 留着长记性
-        Toast.makeText(this, requestCode, Toast.LENGTH_SHORT).show();
-        if (requestCode == EVENT_LOGIN) {
-
-            Toast.makeText(this, "EVENT_LOGIN Success", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "EVENT_LOGIN failed", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        int event = intent.getIntExtra("EVENT",EVENT_DEFAULT);
-        if (event == EVENT_LOGIN){
+        int event = intent.getIntExtra("EVENT", EVENT_DEFAULT);
+        if (event == EVENT_LOGIN) {
             mainDrawerLayout.closeDrawer(Gravity.LEFT);
             refreshFragmentsData();
-           initData();
+            initData();
         }
+    }
+
+    private void initClicks() {
+        imvSearch.setOnClickListener( imvSearch -> {
+            startActivity(new Intent(MainActivity.this,SearchActivity.class));
+        });
     }
 }
 

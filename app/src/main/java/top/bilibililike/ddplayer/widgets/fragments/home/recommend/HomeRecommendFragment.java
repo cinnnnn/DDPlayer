@@ -114,12 +114,13 @@ public class HomeRecommendFragment extends BaseFragment implements IRecommendVie
 
     @Override
     public void getDataFailed(String arg) {
+        Log.d("HomeRecommendFragment","getDataFailed "+arg);
         Toast.makeText(getContext(), arg, Toast.LENGTH_SHORT).show();
         refreshLayout.finishRefresh();
     }
 
     @Override
     public void getDataFailed() {
-        Toast.makeText(getContext(), "请求列表失败", Toast.LENGTH_SHORT).show();
+        Log.d("HomeRecommendFragment","getDataFailed "+"请求列表失败");
     }
 }

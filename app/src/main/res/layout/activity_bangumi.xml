@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_56"
+            app:navigationIcon="@mipmap/ic_back"
+            app:title="番剧"
+            app:titleTextColor="#ffffff"
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
+
+        </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/qb_px_40"
+            android:background="@color/colorPrimary"
+            app:tabTextAppearance="@style/tabText"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabTextColor="@color/defaultTextGray"
+            app:tabIndicatorColor="#ffffff"
+            app:tabMode="scrollable"
+            app:tabIndicatorGravity="bottom"
+            app:tabGravity="fill"
+            app:layout_scrollFlags="enterAlways"
+
+
+            >
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

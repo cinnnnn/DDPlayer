@@ -6,7 +6,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.R;
 import top.bilibililike.ddplayer.base.BaseFragment;
-import top.bilibililike.ddplayer.entity.AVDetailBean;
+import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
 
 public class AvIntroductionFragment extends BaseFragment {
     @BindView(R.id.title)

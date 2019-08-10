@@ -1,4 +1,4 @@
-package top.bilibililike.ddplayer.entity;
+package top.bilibililike.ddplayer.entity.avPlay;
 
 import com.google.gson.annotations.SerializedName;
 
