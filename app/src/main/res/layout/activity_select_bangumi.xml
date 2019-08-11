@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".widgets.SelectBangumiActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_56"
+        android:background="@color/colorPrimary"
+        >
+        <ImageView
+            android:id="@+id/imv_back"
+            android:layout_width="@dimen/qb_px_64"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_back"
+            android:paddingTop="@dimen/qb_px_16"
+            android:paddingBottom="@dimen/qb_px_16"
+            android:paddingStart="@dimen/qb_px_16"
+            android:paddingEnd="@dimen/qb_px_16"
+            />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/qb_px_16"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:text="测试标题"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

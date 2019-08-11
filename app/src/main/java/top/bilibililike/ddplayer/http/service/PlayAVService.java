@@ -51,4 +51,13 @@ public interface PlayAVService {
     @GET("pgc/player/api/playurl")
     Observable<BangumiUrlBean> getBangumiUrl();
 
+    //https://www.biliplus.com/BPplayurl.php?avid=61306392&cid=106650586&otype=json&module=bangumi
+    @GET("BPplayurl.php")
+    Observable<BangumiUrlBean> getOverseasUrl();
+
+    //https://www.biliplus.com/api/bangumi?season_type=1&season=28050
+    @GET("api/bangumi")
+    Observable<BangumiDetailBean> getOverSeasDetail();
+
+
 }
