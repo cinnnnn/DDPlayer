@@ -73,5 +73,9 @@ public class PlayAVPresenter {
         }
     }
 
+    public void getOverseasBangumi(String season,int index){
+        mModel.getOverSeaBangumi(season,index);
+    }
+
 
 }

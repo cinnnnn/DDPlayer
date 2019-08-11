@@ -140,7 +140,7 @@ public class MultiSampleVideo extends StandardGSYVideoPlayer {
         this.secProgress = secProgress;
         this.currentTime = currentTime;
         this.totalTime = totalTime;
-        Log.d("Playav",getTag()+"现在毫秒:"+currentTime);
+        Log.d("Playav",getTag()+"现在毫秒:"+currentTime+" 倍率: "+getSpeed());
         /*if (getTag().equals("av")){
             Log.d("Multi",getTag().toString()+"progress = "+progress);
             Log.d("Multi",getTag().toString()+"secProgress = "+secProgress);

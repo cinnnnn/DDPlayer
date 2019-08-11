@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.ViewPager;
 
@@ -24,8 +25,10 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import top.bilibililike.ddplayer.R;
 import top.bilibililike.ddplayer.base.BaseActivity;
 import top.bilibililike.ddplayer.base.BaseFragment;
@@ -69,8 +72,6 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     MultiSampleVideo audioPlayer;
 
     List<BaseFragment> fragmentList;
-    Disposable mVideoDisposable;
-    Disposable mAppBarDisposable;
     private boolean isPlay = true;
 
     String aid;
@@ -138,25 +139,42 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         }
 
         try {
-            mAppBarDisposable = Observable.interval(500, 1000, TimeUnit.MILLISECONDS)
+            Observable.interval(500, 1000, TimeUnit.MILLISECONDS)
                     .takeWhile(bool -> isPlay)
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aLong -> {
-                       if (avPlayer == null ){
+                    .subscribe(new Observer<Long>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                       } else  if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
-                            if (params.getScrollFlags() != AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) {
-                                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
-                                collapsingToolbar.setLayoutParams(params);
-                            }
-                        } else {
-                            if (params.getScrollFlags() != (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED)) {
-                                params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
-                                collapsingToolbar.setLayoutParams(params);
+                        }
+
+                        @Override
+                        public void onNext(Long aLong) {
+                            if (avPlayer == null ){
+
+                            } else  if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
+                                if (params.getScrollFlags() != AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED) {
+                                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+                                    collapsingToolbar.setLayoutParams(params);
+                                }
+                            } else {
+                                if (params.getScrollFlags() != (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED)) {
+                                    params.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+                                    collapsingToolbar.setLayoutParams(params);
+                                }
                             }
                         }
 
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
                     });
         } catch (NullPointerException e) {
             e.printStackTrace();
@@ -230,7 +248,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         Map<String, String> avHeaderMap = new HashMap<>();
         avHeaderMap.put("Accept", "*/*");
         avHeaderMap.put("User-Agent", "Bilibili Freedoooooom/MarkII");
-        avHeaderMap.put("Range", "0-");
+        //avHeaderMap.put("Range", "0-");
         avPlayer.setMapHeadData(avHeaderMap);
         avPlayer.setAutoFullWithSize(true);
         avPlayer.setShowFullAnimation(true);
@@ -247,7 +265,6 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         avPlayer.getBackButton().setOnClickListener(view -> onBackPressed());
         if (avPlayer.isIfCurrentIsFullscreen()) {
             avPlayer.getFullWindowPlayer().getBackButton().setOnClickListener(v -> avManager = avPlayer.getGSYVideoManager());
-
         }
 
     }
@@ -256,79 +273,116 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         // avUrl = "http://183.236.60.80:7793/wsconnect?2407526888&3451096147&7216&0";
         if (!audioUrl.equals("null")){
             audioPlayer.setUp(audioUrl, true, "音频测试");
+            audioPlayer.setSpeed(1);
             audioPlayer.startAfterPrepared();
+        }else {
+            audioPlayer = null;
         }
+        avPlayer.setSpeed(1);
         avPlayer.setUp(avUrl, true, "播放测试");
+
         avPlayer.startAfterPrepared();
         //ijk关闭log
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
         try {
-            if (avPlayer.isStartAfterPrepared() && audioPlayer.isStartAfterPrepared()) {
-                mVideoDisposable = Observable
+            if (avPlayer.isStartAfterPrepared() && audioPlayer!=null && audioPlayer.isStartAfterPrepared()) {
+                Observable
                         .interval(3000, 300, TimeUnit.MILLISECONDS)
                         .takeWhile(aLong -> isPlay)
+                        .takeWhile(aLong -> audioPlayer!=null)
+                        .takeWhile(aLong -> avPlayer != null)
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(aLong -> {
-                            long avCurrent = avManager.getCurrentPosition();
-                            long audioCurrent = audioPlayer.getGSYVideoManager().getCurrentPosition();
-                            Log.d("playav", "avManager current = " + avCurrent);
-                            float temp;
-                            if (Math.abs(audioCurrent - avCurrent) > 500 && avPlayer.getCurrentState() != CURRENT_STATE_AUTO_COMPLETE) {
-                                audioManager.seekTo(avCurrent);
-                                Log.d("Plav", "seek *1 " + audioCurrent + "\n " + avCurrent);
+                        .doOnError(throwable -> Log.d("PlayavActivity 时间调节","翻车了"+throwable.toString()))
+                        .subscribe(new Observer<Long>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
-                            } else if ((temp = (audioCurrent - avCurrent)) < 200) {
-                                Log.d("Plav", "audio快了 " + audioPlayer.getCurrentTime() + "\n " + avCurrent);
-
-                                temp = Math.abs(temp / (200 + temp));
-                                temp = temp < 0.9f ? 0.9f : temp;
-                                avManager.setSpeed(temp, false);
-                            } else if ((temp = (audioCurrent - avCurrent)) > -200) {
-                                Log.d("Plav", "av快了 " + audioCurrent + "\n " + avCurrent);
-
-                                temp = Math.abs(temp / (200 - temp));
-                                temp = temp > 1.1f ? temp : 1.1f;
-                                avManager.setSpeed(temp, false);
-                            } else {
-                                avManager.setSpeed(1, false);
-                            }
-                            // todo fix 可能存在bug
-                            if (avPlayer.getSeekTo() > 0) {
-                                audioManager.seekTo(avPlayer.getCurrentTime());
-                                avPlayer.setSeekTo(-1);
                             }
 
-                            if (!avPlayer.isIfCurrentIsFullscreen()) {
-                                if (avPlayer.getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
-                                    audioPlayer.onVideoPause();
-                                } else if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
+                            @Override
+                            public void onNext(Long aLong) {
+                                Log.d("PlayavActivity 时间调节","进入了");
+                                long avCurrent = avManager.getCurrentPosition();
+                                long audioCurrent = audioManager.getCurrentPosition();
+                                Log.d("playav", "avManager current = " + avCurrent);
+                                float temp;
+                                if (Math.abs(audioCurrent - avCurrent) > 500 && avPlayer.getCurrentState() != CURRENT_STATE_AUTO_COMPLETE) {
+                                    audioManager.seekTo(avCurrent);
+                                    Log.d("Plav", "seek *1 " + audioCurrent + "\n " + avCurrent);
 
-                                    if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
-                                        audioPlayer.onVideoResume(true, avPlayer.getCurrentTime());
-                                    } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avPlayer.getCurrentTime() <= 5000) {
-                                        audioPlayer.startLogic();
-                                    }
+                                } else if ((temp = (audioCurrent - avCurrent)) < 200) {
+                                    Log.d("Plav", "audio快了 " + audioPlayer.getCurrentTime() + "\n " + avCurrent);
 
+                                    temp = Math.abs(temp / (200 + temp));
+                                    temp = temp < 0.9f ? 0.9f : temp;
+                                    avManager.setSpeed(temp, false);
+                                } else if ((temp = (audioCurrent - avCurrent)) > -200) {
+                                    Log.d("Plav", "av快了 " + audioCurrent + "\n " + avCurrent);
+
+                                    temp = Math.abs(temp / (200 - temp));
+                                    temp = temp > 1.1f ? temp : 1.1f;
+                                    avManager.setSpeed(temp, false);
+                                } else {
+                                    avManager.setSpeed(1, false);
                                 }
-                            } else {
-                                if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
-                                    audioPlayer.onVideoPause();
-                                } else if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING) {
-
-                                    if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
-                                        audioPlayer.onVideoResume(true, avCurrent);
-                                    } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avCurrent <= 5000) {
-                                        audioPlayer.startLogic();
-                                    }
-
+                                // todo fix 可能存在bug
+                                if (avPlayer.getSeekTo() > 0) {
+                                    audioManager.seekTo(avPlayer.getCurrentTime());
+                                    avPlayer.setSeekTo(-1);
                                 }
+
+                                if (!avPlayer.isIfCurrentIsFullscreen()) {
+                                    if (avPlayer.getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
+                                        audioPlayer.onVideoPause();
+                                    } else if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
+
+                                        if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
+                                            audioPlayer.onVideoResume(true, avPlayer.getCurrentTime());
+                                        } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avPlayer.getCurrentTime() <= 5000) {
+                                            audioPlayer.startLogic();
+                                        }
+
+                                    }
+                                } else {
+                                    if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PAUSE || avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING_BUFFERING_START) {
+                                        audioPlayer.onVideoPause();
+                                    } else if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING) {
+
+                                        if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
+                                            audioPlayer.onVideoResume(true, avCurrent);
+                                        } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avCurrent <= 5000) {
+                                            audioPlayer.startLogic();
+                                        }
+
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onComplete() {
+
                             }
                         });
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    private void loadPlayer(String avUrl){
+        // avUrl = "http://183.236.60.80:7793/wsconnect?2407526888&3451096147&7216&0";
+        avPlayer.setUp(avUrl, true, "播放测试");
+        avPlayer.setSpeed(1);
+        avPlayer.startAfterPrepared();
+        //ijk关闭log
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
 
 
     }
@@ -419,7 +473,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
             fragmentList.get(1).notifyDataSetChanged(videoBean.getBase_url(), dataBean.getDash().getAudio().get(0).getBase_url());
             Log.d("Playav", videoBean.getBase_url());
         } else {
-            loadPlayer(dataBean.getDurl().get(0).getUrl(),"null");
+            loadPlayer(dataBean.getDurl().get(0).getUrl());
             Log.d("Playav", dataBean.getDurl().get(0).getUrl());
         }
 
@@ -449,7 +503,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
 
     @Override
     public void getBangumiUrlSuccess(BangumiUrlBean.DurlBean dataBean) {
-        loadPlayer(dataBean.getUrl(),"null");
+        loadPlayer(dataBean.getUrl());
     }
 
 
@@ -457,6 +511,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     @Override
     public void getBangumiUrlFailed(String message) {
         Log.d("Playav BangumiUrlFailed",message);
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
 
