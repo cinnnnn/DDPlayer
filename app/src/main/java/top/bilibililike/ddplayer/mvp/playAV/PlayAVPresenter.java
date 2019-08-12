@@ -1,5 +1,7 @@
 package top.bilibililike.ddplayer.mvp.playAV;
 
+import java.util.List;
+
 import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
 import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
 import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
@@ -62,8 +64,8 @@ public class PlayAVPresenter {
         mView.getBangumiUrlSuccess(dashBean);
     }
 
-    public void getBangumiUrlSuccess(BangumiUrlBean.DurlBean durlBean){
-        mView.getBangumiUrlSuccess(durlBean);
+    public void getBangumiUrlSuccess(List<BangumiUrlBean.DurlBean> durlList){
+        mView.getBangumiUrlSuccess(durlList);
     }
 
     public void getBangumiUrlFailed(String message){

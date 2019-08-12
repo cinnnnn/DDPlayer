@@ -74,9 +74,9 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     List<BaseFragment> fragmentList;
     private boolean isPlay = true;
 
-    String aid;
-    String season;
-    int index;
+    private String aid;
+    private String season;
+    private int index;
 
     PlayAVPresenter mPresenter;
     GSYVideoViewBridge avManager;
@@ -88,7 +88,6 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //隐藏顶部的状态栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        super.doBeforeSetContent();
     }
 
     @Override
@@ -289,7 +288,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                 Observable
                         .interval(3000, 300, TimeUnit.MILLISECONDS)
                         .takeWhile(aLong -> isPlay)
-                        .takeWhile(aLong -> audioPlayer!=null)
+                        .takeWhile(aLong -> audioPlayer !=null)
                         .takeWhile(aLong -> avPlayer != null)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable -> Log.d("PlayavActivity 时间调节","翻车了"+throwable.toString()))
@@ -337,7 +336,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                                     } else if (avPlayer.getCurrentState() == CURRENT_STATE_PLAYING) {
 
                                         if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
-                                            audioPlayer.onVideoResume(true, avPlayer.getCurrentTime());
+                                            audioPlayer.onVideoResume(true);
                                         } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avPlayer.getCurrentTime() <= 5000) {
                                             audioPlayer.startLogic();
                                         }
@@ -349,7 +348,7 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
                                     } else if (avPlayer.getFullWindowPlayer().getCurrentState() == CURRENT_STATE_PLAYING) {
 
                                         if (audioPlayer.getCurrentState() == CURRENT_STATE_PAUSE) {
-                                            audioPlayer.onVideoResume(true, avCurrent);
+                                            audioPlayer.onVideoResume(true);
                                         } else if (audioPlayer.getCurrentState() == CURRENT_STATE_AUTO_COMPLETE && avCurrent <= 5000) {
                                             audioPlayer.startLogic();
                                         }
@@ -383,8 +382,15 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
         avPlayer.startAfterPrepared();
         //ijk关闭log
         IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
+    }
 
-
+    private void loadPlayer(List<BangumiUrlBean.DurlBean> durlBeanList){
+        // avUrl = "http://183.236.60.80:7793/wsconnect?2407526888&3451096147&7216&0";
+        avPlayer.setUp(durlBeanList.get(0).getUrl(), true, "播放测试");
+        avPlayer.setSpeed(1);
+        avPlayer.startAfterPrepared();
+        //ijk关闭log
+        IjkPlayerManager.setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
     }
 
     private void initData() {
@@ -502,8 +508,8 @@ public class PlayAvActivity extends BaseActivity implements IPlayAVView {
     }
 
     @Override
-    public void getBangumiUrlSuccess(BangumiUrlBean.DurlBean dataBean) {
-        loadPlayer(dataBean.getUrl());
+    public void getBangumiUrlSuccess(List<BangumiUrlBean.DurlBean> dataList) {
+        loadPlayer(dataList);
     }
 
 
