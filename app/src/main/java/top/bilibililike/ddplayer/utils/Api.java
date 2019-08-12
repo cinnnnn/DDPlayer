@@ -12,7 +12,6 @@ public class Api {
     public static final String LOGIN_HOST = "https://passport.bilibili.com";
     public static final String APP_HOST = "https://app.bilibili.com";
     public static final String API_HOST = "https://api.bilibili.com";
-    public static final String BILIPLUS_HOST = "https://www.biliplus.com";
 
     public static final String appsecret = "560c52ccd288fed045859ed18bffd973";
     public static final String videosecret = "aHRmhWMLkdeMuILqORnYZocwMBpMEOdt";

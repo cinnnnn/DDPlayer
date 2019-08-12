@@ -6,6 +6,4 @@ public interface IPlayAVModel {
     void getAVComment();
 
     void getBangumiData(String season,int index);
-
-    void getOverSeaBangumi(String season,int index);
 }

@@ -20,8 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".widgets.SelectBangumiActivity"></activity>
-        <activity android:name=".widgets.SearchActivity" />
+        <activity android:name=".widgets.SearchActivity"></activity>
         <activity android:name=".widgets.fragments.bangumi.BangumiActivity" />
         <activity android:name=".widgets.UserDetailActivity" />
         <activity android:name=".widgets.LoginActivity" />
