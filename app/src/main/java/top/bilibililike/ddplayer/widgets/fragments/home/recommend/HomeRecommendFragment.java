@@ -8,11 +8,9 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.R;
@@ -21,7 +19,7 @@ import top.bilibililike.ddplayer.base.BaseRecycleViewAdapter;
 import top.bilibililike.ddplayer.entity.AvListBean;
 import top.bilibililike.ddplayer.mvp.homeRecommend.IRecommendView;
 import top.bilibililike.ddplayer.mvp.homeRecommend.RecommendPresenter;
-import top.bilibililike.ddplayer.widgets.PlayAvActivity;
+import top.bilibililike.ddplayer.widgets.playerActivities.PlayAvActivity;
 
 
 public class HomeRecommendFragment extends BaseFragment implements IRecommendView {

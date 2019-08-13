@@ -4,24 +4,13 @@ import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.tencent.bugly.Bugly;
-import com.tencent.bugly.crashreport.CrashReport;
 
-import org.litepal.LitePal;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.functions.Consumer;
 import top.bilibililike.ddplayer.base.BaseActivity;
-import top.bilibililike.ddplayer.entity.TokenBean;
-import top.bilibililike.ddplayer.entity.UserInfoBean;
 import top.bilibililike.ddplayer.utils.Api;
 import top.bilibililike.ddplayer.widgets.MainActivity;
-import top.bilibililike.ddplayer.widgets.PlayAvActivity;
 
 public class StartActivity extends BaseActivity {
 

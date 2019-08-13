@@ -13,11 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -40,13 +36,11 @@ import top.bilibililike.ddplayer.entity.TokenBean;
 import top.bilibililike.ddplayer.mvp.userInfo.IUserInfoView;
 import top.bilibililike.ddplayer.entity.UserInfoBean;
 import top.bilibililike.ddplayer.mvp.userInfo.UserInfoPresenter;
-import top.bilibililike.ddplayer.utils.AppBarStateChangeListener;
-import top.bilibililike.ddplayer.utils.GradientPageTransformer;
-import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
+import top.bilibililike.ddplayer.utils.groceries.GradientPageTransformer;
+import top.bilibililike.ddplayer.utils.groceries.ViewPagerAdapter;
 import top.bilibililike.ddplayer.utils.statusBar.StatusBarUtil;
 import top.bilibililike.ddplayer.widgets.fragments.ChannelFragment;
 import top.bilibililike.ddplayer.widgets.fragments.DynamicFragment;
-import top.bilibililike.ddplayer.widgets.fragments.MallFragment;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.BangumiIntroductionFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.HomeFragment;
 

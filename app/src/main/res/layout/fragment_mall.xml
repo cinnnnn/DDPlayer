@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/qb_px_128"
+    >
+    <LinearLayout
+        android:paddingLeft="@dimen/qb_px_16"
+        android:paddingEnd="@dimen/qb_px_16"
+        android:paddingBottom="@dimen/qb_px_16"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="fragment_mall"
+        android:layout_height="@dimen/qb_px_256">
+
+        <EditText
+            android:id="@+id/edtv_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请填写需要反馈的信息"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_pull_request"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/qb_px_64"
+        android:text="提交反馈"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#000000"
+        android:background=""
         />
+
 
 </LinearLayout>

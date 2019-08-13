@@ -1,4 +1,4 @@
-package top.bilibililike.ddplayer.utils;
+package top.bilibililike.ddplayer.utils.groceries;
 
 import com.bumptech.glide.annotation.GlideModule;
 

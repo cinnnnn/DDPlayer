@@ -2,9 +2,6 @@ package top.bilibililike.ddplayer.widgets.fragments.home;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.appbar.AppBarLayout;
@@ -16,7 +13,7 @@ import java.util.List;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.base.BaseFragment;
 import top.bilibililike.ddplayer.R;
-import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
+import top.bilibililike.ddplayer.utils.groceries.ViewPagerAdapter;
 import top.bilibililike.ddplayer.widgets.fragments.home.bangumi.HomeBangumiFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.hot.HomeHotFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.live.HomeLiveFragment;

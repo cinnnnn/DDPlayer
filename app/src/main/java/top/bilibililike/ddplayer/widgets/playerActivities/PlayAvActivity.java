@@ -1,4 +1,4 @@
-package top.bilibililike.ddplayer.widgets;
+package top.bilibililike.ddplayer.widgets.playerActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,8 +40,8 @@ import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
 import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiUrlBean;
 import top.bilibililike.ddplayer.mvp.playAV.IPlayAVView;
 import top.bilibililike.ddplayer.mvp.playAV.PlayAVPresenter;
-import top.bilibililike.ddplayer.utils.AppBarStateChangeListener;
-import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
+import top.bilibililike.ddplayer.utils.groceries.AppBarStateChangeListener;
+import top.bilibililike.ddplayer.utils.groceries.ViewPagerAdapter;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.AvCommentFragment;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.AvIntroductionFragment;
 import top.bilibililike.ddplayer.widgets.fragments.avDetail.BangumiIntroductionFragment;
