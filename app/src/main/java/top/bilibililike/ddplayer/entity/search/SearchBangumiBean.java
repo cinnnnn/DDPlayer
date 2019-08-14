@@ -1,5 +1,8 @@
 package top.bilibililike.ddplayer.entity.search;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -445,7 +448,7 @@ public class SearchBangumiBean {
                 }
             }
 
-            public static class EpisodesBean {
+            public static class EpisodesBean implements Parcelable {
                 /**
                  * uri : https://www.bilibili.com/bangumi/play/ep113353
                  * param : 113353
@@ -479,9 +482,42 @@ public class SearchBangumiBean {
                 public void setIndex(String index) {
                     this.index = index;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.uri);
+                    dest.writeString(this.param);
+                    dest.writeString(this.index);
+                }
+
+                public EpisodesBean() {
+                }
+
+                protected EpisodesBean(Parcel in) {
+                    this.uri = in.readString();
+                    this.param = in.readString();
+                    this.index = in.readString();
+                }
+
+                public static final Parcelable.Creator<EpisodesBean> CREATOR = new Parcelable.Creator<EpisodesBean>() {
+                    @Override
+                    public EpisodesBean createFromParcel(Parcel source) {
+                        return new EpisodesBean(source);
+                    }
+
+                    @Override
+                    public EpisodesBean[] newArray(int size) {
+                        return new EpisodesBean[size];
+                    }
+                };
             }
 
-            public static class EpisodesNewBean {
+            public static class EpisodesNewBean implements Parcelable {
                 /**
                  * title : 1
                  * uri : https://www.bilibili.com/bangumi/play/ep113353
@@ -525,6 +561,41 @@ public class SearchBangumiBean {
                 public void setIs_new(int is_new) {
                     this.is_new = is_new;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.title);
+                    dest.writeString(this.uri);
+                    dest.writeString(this.param);
+                    dest.writeInt(this.is_new);
+                }
+
+                public EpisodesNewBean() {
+                }
+
+                protected EpisodesNewBean(Parcel in) {
+                    this.title = in.readString();
+                    this.uri = in.readString();
+                    this.param = in.readString();
+                    this.is_new = in.readInt();
+                }
+
+                public static final Parcelable.Creator<EpisodesNewBean> CREATOR = new Parcelable.Creator<EpisodesNewBean>() {
+                    @Override
+                    public EpisodesNewBean createFromParcel(Parcel source) {
+                        return new EpisodesNewBean(source);
+                    }
+
+                    @Override
+                    public EpisodesNewBean[] newArray(int size) {
+                        return new EpisodesNewBean[size];
+                    }
+                };
             }
         }
     }

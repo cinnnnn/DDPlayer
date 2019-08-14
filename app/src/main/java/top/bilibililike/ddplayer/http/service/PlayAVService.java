@@ -61,4 +61,12 @@ public interface PlayAVService {
     @GET("/{id}")
     Observable<ResponseBody> getBigoData(@Path("id")String id);
 
+    //https://www.biliplus.com/api/bangumi?season_type=1&season=28050
+    @GET("api/bangumi")
+    Observable<BangumiDetailBean> getOverSeasDetail();
+
+    //https://www.biliplus.com/BPplayurl.php?avid=61306392&cid=106650586&otype=json&module=bangumi
+    @GET("BPplayurl.php")
+    Observable<BangumiUrlBean> getOverseasUrl();
+
 }

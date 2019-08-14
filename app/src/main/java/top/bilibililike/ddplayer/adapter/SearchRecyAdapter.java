@@ -78,9 +78,9 @@ public class SearchRecyAdapter extends RecyclerView.Adapter<SearchRecyAdapter.Vi
                     .load(itemsBean.getCover())
                     .into(holder.imvCover);
             holder.tvTitle.setText(itemsBean.getTitle());
-            int time = itemsBean.getPtime();
-            String result1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(time * 1000));
-            holder.tvDetail.setText(result1.substring(0, 4) + " | " + itemsBean.getBadge() + " | " + itemsBean.getArea());
+            long time = (long)itemsBean.getPtime();
+            String result1 = new SimpleDateFormat("yyyy").format(new Date(time * 1000));
+            holder.tvDetail.setText(result1+ " | " + itemsBean.getBadge() + " | " + itemsBean.getArea());
             holder.txTag.setText(itemsBean.getStyle());
             holder.txvScore.setText(itemsBean.getRating() + "");
             holder.txvPeople.setText(itemsBean.getVote()+"人");

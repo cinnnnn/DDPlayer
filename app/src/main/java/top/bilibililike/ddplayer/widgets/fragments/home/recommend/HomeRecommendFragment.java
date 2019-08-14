@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import top.bilibililike.ddplayer.R;
+import top.bilibililike.ddplayer.adapter.HomeRecommendRecyAdapter;
 import top.bilibililike.ddplayer.base.BaseFragment;
 import top.bilibililike.ddplayer.base.BaseRecycleViewAdapter;
 import top.bilibililike.ddplayer.entity.AvListBean;

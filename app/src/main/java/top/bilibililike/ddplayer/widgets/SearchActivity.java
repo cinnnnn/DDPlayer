@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,7 +57,13 @@ public class SearchActivity extends BaseActivity implements ISearchView,SearchRe
         initViewPager();
         initTabLayout();
         txvSearch.setOnClickListener(v -> {
-            mPresenter.search(searchEdtv.getText().toString());
+            if (tabLayout.getSelectedTabPosition() == 0){
+                mPresenter.search(searchEdtv.getText().toString());
+            }else if (tabLayout.getSelectedTabPosition() == 1){
+                mPresenter.search(searchEdtv.getText().toString(),"bangumi");
+            }else if (tabLayout.getSelectedTabPosition() == 2){
+                mPresenter.search(searchEdtv.getText().toString(),"live");
+            }
         });
     }
 
@@ -195,7 +202,20 @@ public class SearchActivity extends BaseActivity implements ISearchView,SearchRe
         }
 
         if (textView.getText().toString().equals("...")){
+            Bundle bundle = new Bundle();
+            ArrayList<SearchBangumiBean.DataBean.ItemsBean.EpisodesBean> episodesArrayList = new ArrayList<>(episodeList);
+            ArrayList<SearchBangumiBean.DataBean.ItemsBean.EpisodesNewBean> episodesNewBeanArrayList = new ArrayList<>(episodeNewList);
             //todo 跳转到选集页面activity
+            if (episodeList != null){
+                bundle.putParcelableArrayList("episodeList",episodesArrayList);
+            }else {
+                bundle.putParcelableArrayList("episodeNewList",episodesNewBeanArrayList);
+            }
+            bundle.putInt("season",itemsBean.getSeason_id());
+            bundle.putString("title",itemsBean.getTitle());
+            Intent intent = new Intent(SearchActivity.this,SelectBangumiActivity.class);
+            intent.putExtra("bundle",bundle);
+            startActivity(intent);
         }
     }
 }
