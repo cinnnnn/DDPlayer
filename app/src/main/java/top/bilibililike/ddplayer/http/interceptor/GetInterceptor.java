@@ -35,7 +35,7 @@ public class GetInterceptor implements Interceptor {
 
         Request request = chain.request();
         HashMap<String, String> paramMap = new HashMap<>();
-        if (tokenInfoBean != null ){
+        if (tokenInfoBean != null){
             paramMap.put("access_key",tokenInfoBean.getAccess_token());
         }
         paramMap.putAll(Api.getParams());
@@ -81,10 +81,6 @@ public class GetInterceptor implements Interceptor {
             paramMap.clear();
             paramMap.putAll(Api.getParams());
         }
-       /* TokenBean.DataBean.TokenInfoBean tokenInfoBean = LitePal.find(TokenBean.DataBean.TokenInfoBean.class,1);
-        if (tokenInfoBean != null){
-            paramMap.put("access_key",tokenInfoBean.getAccess_token());
-        }*/
         paramMap.putAll(param);
     }
 }

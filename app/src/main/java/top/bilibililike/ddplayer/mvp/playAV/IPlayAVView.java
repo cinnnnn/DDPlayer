@@ -1,5 +1,7 @@
 package top.bilibililike.ddplayer.mvp.playAV;
 
+import java.util.List;
+
 import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
 import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
 import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
@@ -18,7 +20,7 @@ public interface IPlayAVView {
     void getBangumiDetailSuccess(BangumiDetailBean.ResultBean dataBean);
     void getBangumiDetailFailed(String message);
     void getBangumiUrlSuccess(BangumiUrlBean.DashBean dataBean);
-    void getBangumiUrlSuccess(BangumiUrlBean.DurlBean dataBean);
+    void getBangumiUrlSuccess(List<BangumiUrlBean.DurlBean> dataList);
     void getBangumiUrlFailed(String message);
 
 }

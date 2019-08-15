@@ -188,7 +188,7 @@ public class PlayAVModel implements IPlayAVModel {
                     if (urlBean.getDash() != null) {
                         mPresenter.getBangumiUrlSuccess(urlBean.getDash());
                     } else if (urlBean.getDurl() != null) {
-                        mPresenter.getBangumiUrlSuccess(urlBean.getDurl().get(0));
+                        mPresenter.getBangumiUrlSuccess(urlBean.getDurl());
                     }
                     return urlBean;
                 })
@@ -281,7 +281,7 @@ public class PlayAVModel implements IPlayAVModel {
                         if (urlBean.getDash() != null) {
                             mPresenter.getBangumiUrlSuccess(urlBean.getDash());
                         } else if (urlBean.getDurl() != null) {
-                            mPresenter.getBangumiUrlSuccess(urlBean.getDurl().get(0));
+                            mPresenter.getBangumiUrlSuccess(urlBean.getDurl());
                         }
                     } else {
                         mPresenter.getBangumiUrlFailed(urlBean.getMessage());

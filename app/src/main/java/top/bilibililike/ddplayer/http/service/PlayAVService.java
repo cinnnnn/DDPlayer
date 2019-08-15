@@ -1,11 +1,16 @@
 package top.bilibililike.ddplayer.http.service;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import top.bilibililike.ddplayer.entity.avPlay.AVDetailBean;
 import top.bilibililike.ddplayer.entity.avPlay.AVUrlBean;
 import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiDetailBean;
 import top.bilibililike.ddplayer.entity.bangumiPlay.BangumiUrlBean;
+import top.bilibililike.ddplayer.entity.bigoLive.BigoLiveBean;
 
 public interface PlayAVService {
     @GET("/x/v2/view")
@@ -51,13 +56,17 @@ public interface PlayAVService {
     @GET("pgc/player/api/playurl")
     Observable<BangumiUrlBean> getBangumiUrl();
 
-    //https://www.biliplus.com/BPplayurl.php?avid=61306392&cid=106650586&otype=json&module=bangumi
-    @GET("BPplayurl.php")
-    Observable<BangumiUrlBean> getOverseasUrl();
+
+    @Headers("User-Agent:Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1")
+    @GET("/{id}")
+    Observable<ResponseBody> getBigoData(@Path("id")String id);
 
     //https://www.biliplus.com/api/bangumi?season_type=1&season=28050
     @GET("api/bangumi")
     Observable<BangumiDetailBean> getOverSeasDetail();
 
+    //https://www.biliplus.com/BPplayurl.php?avid=61306392&cid=106650586&otype=json&module=bangumi
+    @GET("BPplayurl.php")
+    Observable<BangumiUrlBean> getOverseasUrl();
 
 }

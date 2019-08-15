@@ -6,17 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,6 +24,7 @@ import top.bilibililike.ddplayer.entity.search.SearchBean;
 import top.bilibililike.ddplayer.entity.search.SearchLiveBean;
 import top.bilibililike.ddplayer.mvp.search.ISearchView;
 import top.bilibililike.ddplayer.mvp.search.SearchPresenter;
+import top.bilibililike.ddplayer.widgets.playerActivities.PlayAvActivity;
 
 public class SearchActivity extends BaseActivity implements ISearchView,SearchRecyAdapter.OnItemClickedListener {
 
@@ -46,8 +43,6 @@ public class SearchActivity extends BaseActivity implements ISearchView,SearchRe
     TabLayout tabLayout;
    // @BindView(R.id.view_pager)
    // ViewPager viewPager;
-
-
 
     @Override
     public int getLayoutId() {
@@ -103,13 +98,7 @@ public class SearchActivity extends BaseActivity implements ISearchView,SearchRe
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0){
-                    mPresenter.search(searchEdtv.getText().toString());
-                }else if (tab.getPosition() == 1){
-                    mPresenter.search(searchEdtv.getText().toString(),"bangumi");
-                }else if (tab.getPosition() == 2){
-                    mPresenter.search(searchEdtv.getText().toString(),"live");
-                }
+
             }
         });
     }
@@ -184,7 +173,7 @@ public class SearchActivity extends BaseActivity implements ISearchView,SearchRe
             textView = (TextView) tempView;
         }
         if (textView.getText().toString().equals("立即观看")){
-            Intent intent = new Intent(SearchActivity.this,PlayAvActivity.class);
+            Intent intent = new Intent(SearchActivity.this, PlayAvActivity.class);
             intent.putExtra("season",episodeList.get(0).getParam());
             startActivity(intent);
         }else if (textView.getText().toString().equals("追番")){

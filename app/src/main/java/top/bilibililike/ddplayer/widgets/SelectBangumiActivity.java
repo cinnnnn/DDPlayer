@@ -17,6 +17,7 @@ import top.bilibililike.ddplayer.R;
 import top.bilibililike.ddplayer.adapter.SelectRecyAdapter;
 import top.bilibililike.ddplayer.base.BaseActivity;
 import top.bilibililike.ddplayer.entity.search.SearchBangumiBean;
+import top.bilibililike.ddplayer.widgets.playerActivities.PlayAvActivity;
 
 public class SelectBangumiActivity extends BaseActivity implements SelectRecyAdapter.onClickListener {
 

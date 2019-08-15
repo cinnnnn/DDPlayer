@@ -13,7 +13,7 @@ import butterknife.BindView;
 import top.bilibililike.ddplayer.R;
 import top.bilibililike.ddplayer.base.BaseActivity;
 import top.bilibililike.ddplayer.base.BaseFragment;
-import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
+import top.bilibililike.ddplayer.utils.groceries.ViewPagerAdapter;
 import top.bilibililike.ddplayer.widgets.fragments.home.bangumi.BangumiEndFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.bangumi.BangumiSeasonFragment;
 import top.bilibililike.ddplayer.widgets.fragments.home.bangumi.BangumiUpdatingFragment;

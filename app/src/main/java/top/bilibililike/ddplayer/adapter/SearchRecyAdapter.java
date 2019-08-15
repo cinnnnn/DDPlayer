@@ -1,7 +1,6 @@
 package top.bilibililike.ddplayer.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,9 +78,9 @@ public class SearchRecyAdapter extends RecyclerView.Adapter<SearchRecyAdapter.Vi
                     .load(itemsBean.getCover())
                     .into(holder.imvCover);
             holder.tvTitle.setText(itemsBean.getTitle());
-            long time = ((long)itemsBean.getPtime())*1000;
-            String result1 = new SimpleDateFormat("yyyy").format(new Date(time));
-            holder.tvDetail.setText(result1 + " | " + itemsBean.getBadge() + " | " + itemsBean.getArea());
+            long time = (long)itemsBean.getPtime();
+            String result1 = new SimpleDateFormat("yyyy").format(new Date(time * 1000));
+            holder.tvDetail.setText(result1+ " | " + itemsBean.getBadge() + " | " + itemsBean.getArea());
             holder.txTag.setText(itemsBean.getStyle());
             holder.txvScore.setText(itemsBean.getRating() + "");
             holder.txvPeople.setText(itemsBean.getVote()+"人");
@@ -93,62 +92,50 @@ public class SearchRecyAdapter extends RecyclerView.Adapter<SearchRecyAdapter.Vi
                     holder.txvCid4.setText(episodeList.get(episodeList.size()-3).getIndex()+"");
                     holder.txvCid5.setText(episodeList.get(episodeList.size()-2).getIndex()+"");
                     holder.txvCid6.setText(episodeList.get(episodeList.size()-1).getIndex()+"");
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
-                    holder.txvCid3.setVisibility(View.VISIBLE);
-                    holder.txvCid4.setVisibility(View.VISIBLE);
-                    holder.txvCid5.setVisibility(View.VISIBLE);
-                    holder.txvCid6.setVisibility(View.VISIBLE);
 
                 }
                 if (episodeList.size() == 1){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
+                    holder.txvCid2.setVisibility(View.INVISIBLE);
+                    holder.txvCid3.setVisibility(View.INVISIBLE);
+                    holder.txvCid4.setVisibility(View.INVISIBLE);
+                    holder.txvCid5.setVisibility(View.INVISIBLE);
+                    holder.txvCid6.setVisibility(View.INVISIBLE);
                 }else if (episodeList.size() == 2){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
                     holder.txvCid2.setText(itemsBean.getEpisodes().get(1).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
+                    holder.txvCid3.setVisibility(View.INVISIBLE);
+                    holder.txvCid4.setVisibility(View.INVISIBLE);
+                    holder.txvCid5.setVisibility(View.INVISIBLE);
+                    holder.txvCid6.setVisibility(View.INVISIBLE);
                 }else if (episodeList.size() == 3){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
                     holder.txvCid2.setText(itemsBean.getEpisodes().get(1).getIndex());
                     holder.txvCid3.setText(itemsBean.getEpisodes().get(2).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
-                    holder.txvCid3.setVisibility(View.VISIBLE);
+                    holder.txvCid4.setVisibility(View.INVISIBLE);
+                    holder.txvCid5.setVisibility(View.INVISIBLE);
+                    holder.txvCid6.setVisibility(View.INVISIBLE);
                 }else if (episodeList.size() == 4){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
                     holder.txvCid2.setText(itemsBean.getEpisodes().get(1).getIndex());
                     holder.txvCid3.setText(itemsBean.getEpisodes().get(2).getIndex());
                     holder.txvCid4.setText(itemsBean.getEpisodes().get(3).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
-                    holder.txvCid3.setVisibility(View.VISIBLE);
-                    holder.txvCid4.setVisibility(View.VISIBLE);
+                    holder.txvCid5.setVisibility(View.INVISIBLE);
+                    holder.txvCid6.setVisibility(View.INVISIBLE);
                 }else if (episodeList.size() == 5){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
                     holder.txvCid2.setText(itemsBean.getEpisodes().get(1).getIndex());
                     holder.txvCid3.setText(itemsBean.getEpisodes().get(2).getIndex());
                     holder.txvCid4.setText(itemsBean.getEpisodes().get(3).getIndex());
                     holder.txvCid5.setText(itemsBean.getEpisodes().get(4).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
-                    holder.txvCid3.setVisibility(View.VISIBLE);
-                    holder.txvCid4.setVisibility(View.VISIBLE);
-                    holder.txvCid5.setVisibility(View.VISIBLE);
+                    holder.txvCid6.setVisibility(View.INVISIBLE);
                 }else if (episodeList.size() == 6){
                     holder.txvCid1.setText(itemsBean.getEpisodes().get(0).getIndex());
                     holder.txvCid2.setText(itemsBean.getEpisodes().get(1).getIndex());
                     holder.txvCid3.setText(itemsBean.getEpisodes().get(2).getIndex());
                     holder.txvCid4.setText(itemsBean.getEpisodes().get(3).getIndex());
                     holder.txvCid5.setText(itemsBean.getEpisodes().get(4).getIndex());
-                    holder.txvCid6.setText(itemsBean.getEpisodes().get(5).getIndex());
-                    holder.txvCid1.setVisibility(View.VISIBLE);
-                    holder.txvCid2.setVisibility(View.VISIBLE);
-                    holder.txvCid3.setVisibility(View.VISIBLE);
-                    holder.txvCid4.setVisibility(View.VISIBLE);
-                    holder.txvCid5.setVisibility(View.VISIBLE);
-                    holder.txvCid6.setVisibility(View.VISIBLE);
+                    holder.txvCid6.setText(itemsBean.getEpisodes().get(5).getIndex());;
                 }
             }
 

@@ -13,17 +13,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.litepal.LitePal;
 
@@ -40,9 +37,8 @@ import top.bilibililike.ddplayer.entity.TokenBean;
 import top.bilibililike.ddplayer.mvp.userInfo.IUserInfoView;
 import top.bilibililike.ddplayer.entity.UserInfoBean;
 import top.bilibililike.ddplayer.mvp.userInfo.UserInfoPresenter;
-import top.bilibililike.ddplayer.utils.AppBarStateChangeListener;
-import top.bilibililike.ddplayer.utils.GradientPageTransformer;
-import top.bilibililike.ddplayer.utils.ViewPagerAdapter;
+import top.bilibililike.ddplayer.utils.groceries.GradientPageTransformer;
+import top.bilibililike.ddplayer.utils.groceries.ViewPagerAdapter;
 import top.bilibililike.ddplayer.utils.statusBar.StatusBarUtil;
 import top.bilibililike.ddplayer.widgets.fragments.ChannelFragment;
 import top.bilibililike.ddplayer.widgets.fragments.DynamicFragment;
@@ -126,8 +122,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
             fragmentList.add(new HomeFragment());
             fragmentList.add(new ChannelFragment());
             fragmentList.add(new DynamicFragment());
-            fragmentList.add(new BangumiIntroductionFragment());
-            //fragmentList.add(new MallFragment());
+            fragmentList.add(new MallFragment());
             container.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         }
     }
@@ -321,6 +316,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
         if (tokenBean != null && infoBean != null && infoBean.getName() != null) {
             loadData();
             Log.d("MainActivity ", "加载老数据");
+            CrashReport.setUserId(infoBean.getName());
 
         }
         if (tokenBean != null && tokenBean.getAccess_token() != null) {
@@ -397,6 +393,7 @@ public class MainActivity extends BaseActivity implements IUserInfoView {
     @Override
     public void updateUserInfoSuccess() {
         this.infoBean = LitePal.find(UserInfoBean.DataBean.class, 1);
+        CrashReport.setUserId(infoBean.getName());
         loadData();
     }
 

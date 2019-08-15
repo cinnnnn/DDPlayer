@@ -7,9 +7,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CONTROL_VPN"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
+
+
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -20,17 +24,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".widgets.SelectBangumiActivity"></activity>
-        <activity android:name=".widgets.SearchActivity" />
+        <activity android:name=".widgets.SearchActivity"></activity>
         <activity android:name=".widgets.fragments.bangumi.BangumiActivity" />
         <activity android:name=".widgets.UserDetailActivity" />
         <activity android:name=".widgets.LoginActivity" />
         <activity
-            android:name=".widgets.PlayAvActivity"
+            android:name=".widgets.playerActivities.PlayAvActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.avAudioService" />
+
+        <service android:name=".service.DDVpnService"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService"/>
+            </intent-filter>
+        </service>
+        <activity android:name=".widgets.playerActivities.PlayBigoLiveActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            />
+
+
 
         <activity
             android:name=".widgets.MainActivity"
@@ -44,6 +60,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".widgets.SelectBangumiActivity" />
     </application>
 
 </manifest>

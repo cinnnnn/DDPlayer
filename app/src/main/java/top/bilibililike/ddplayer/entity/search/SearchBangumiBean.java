@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SearchBangumiBean implements Parcelable {
+public class SearchBangumiBean {
 
     /**
      * code : 0
@@ -53,7 +53,7 @@ public class SearchBangumiBean implements Parcelable {
         this.data = data;
     }
 
-    public static class DataBean implements Parcelable {
+    public static class DataBean {
         /**
          * trackid : 6198570338684904883
          * pages : 1
@@ -98,7 +98,7 @@ public class SearchBangumiBean implements Parcelable {
             this.items = items;
         }
 
-        public static class ItemsBean implements Parcelable {
+        public static class ItemsBean {
             /**
              * title : 欢迎来到实力至上主义的教室
              * cover : https://i0.hdslb.com/bfs/bangumi/a79e331b7443ed5df5a2acd345dc41d598d46ff9.jpg
@@ -358,7 +358,7 @@ public class SearchBangumiBean implements Parcelable {
                 this.episodes_new = episodes_new;
             }
 
-            public static class WatchButtonBean implements Parcelable {
+            public static class WatchButtonBean {
                 /**
                  * title : 立即观看
                  * link : https://www.bilibili.com/bangumi/play/ss6339
@@ -382,40 +382,9 @@ public class SearchBangumiBean implements Parcelable {
                 public void setLink(String link) {
                     this.link = link;
                 }
-
-                @Override
-                public int describeContents() {
-                    return 0;
-                }
-
-                @Override
-                public void writeToParcel(Parcel dest, int flags) {
-                    dest.writeString(this.title);
-                    dest.writeString(this.link);
-                }
-
-                public WatchButtonBean() {
-                }
-
-                protected WatchButtonBean(Parcel in) {
-                    this.title = in.readString();
-                    this.link = in.readString();
-                }
-
-                public static final Parcelable.Creator<WatchButtonBean> CREATOR = new Parcelable.Creator<WatchButtonBean>() {
-                    @Override
-                    public WatchButtonBean createFromParcel(Parcel source) {
-                        return new WatchButtonBean(source);
-                    }
-
-                    @Override
-                    public WatchButtonBean[] newArray(int size) {
-                        return new WatchButtonBean[size];
-                    }
-                };
             }
 
-            public static class FollowButtonBean implements Parcelable {
+            public static class FollowButtonBean {
                 /**
                  * icon : http://i0.hdslb.com/bfs/bangumi/154b6898d2b2c20c21ccef9e41fcf809b518ebb4.png
                  * texts : {"0":"追番","1":"已追番"}
@@ -450,7 +419,7 @@ public class SearchBangumiBean implements Parcelable {
                     this.status_report = status_report;
                 }
 
-                public static class TextsBean implements Parcelable {
+                public static class TextsBean {
                     /**
                      * 0 : 追番
                      * 1 : 已追番
@@ -476,71 +445,7 @@ public class SearchBangumiBean implements Parcelable {
                     public void set_$1(String _$1) {
                         this._$1 = _$1;
                     }
-
-                    @Override
-                    public int describeContents() {
-                        return 0;
-                    }
-
-                    @Override
-                    public void writeToParcel(Parcel dest, int flags) {
-                        dest.writeString(this._$0);
-                        dest.writeString(this._$1);
-                    }
-
-                    public TextsBean() {
-                    }
-
-                    protected TextsBean(Parcel in) {
-                        this._$0 = in.readString();
-                        this._$1 = in.readString();
-                    }
-
-                    public static final Parcelable.Creator<TextsBean> CREATOR = new Parcelable.Creator<TextsBean>() {
-                        @Override
-                        public TextsBean createFromParcel(Parcel source) {
-                            return new TextsBean(source);
-                        }
-
-                        @Override
-                        public TextsBean[] newArray(int size) {
-                            return new TextsBean[size];
-                        }
-                    };
                 }
-
-                @Override
-                public int describeContents() {
-                    return 0;
-                }
-
-                @Override
-                public void writeToParcel(Parcel dest, int flags) {
-                    dest.writeString(this.icon);
-                    dest.writeParcelable(this.texts, flags);
-                    dest.writeString(this.status_report);
-                }
-
-                public FollowButtonBean() {
-                }
-
-                protected FollowButtonBean(Parcel in) {
-                    this.icon = in.readString();
-                    this.texts = in.readParcelable(TextsBean.class.getClassLoader());
-                    this.status_report = in.readString();
-                }
-
-                public static final Parcelable.Creator<FollowButtonBean> CREATOR = new Parcelable.Creator<FollowButtonBean>() {
-                    @Override
-                    public FollowButtonBean createFromParcel(Parcel source) {
-                        return new FollowButtonBean(source);
-                    }
-
-                    @Override
-                    public FollowButtonBean[] newArray(int size) {
-                        return new FollowButtonBean[size];
-                    }
-                };
             }
 
             public static class EpisodesBean implements Parcelable {
@@ -625,8 +530,6 @@ public class SearchBangumiBean implements Parcelable {
                 private String param;
                 private int is_new;
 
-
-
                 public String getTitle() {
                     return title;
                 }
@@ -658,7 +561,6 @@ public class SearchBangumiBean implements Parcelable {
                 public void setIs_new(int is_new) {
                     this.is_new = is_new;
                 }
-
 
                 @Override
                 public int describeContents() {
@@ -695,151 +597,6 @@ public class SearchBangumiBean implements Parcelable {
                     }
                 };
             }
-
-            @Override
-            public int describeContents() {
-                return 0;
-            }
-
-            @Override
-            public void writeToParcel(Parcel dest, int flags) {
-                dest.writeString(this.title);
-                dest.writeString(this.cover);
-                dest.writeString(this.uri);
-                dest.writeString(this.param);
-                dest.writeString(this.gotoX);
-                dest.writeInt(this.ptime);
-                dest.writeInt(this.season_id);
-                dest.writeInt(this.season_type);
-                dest.writeString(this.season_type_name);
-                dest.writeInt(this.media_type);
-                dest.writeString(this.style);
-                dest.writeString(this.cv);
-                dest.writeDouble(this.rating);
-                dest.writeInt(this.vote);
-                dest.writeString(this.area);
-                dest.writeString(this.staff);
-                dest.writeInt(this.is_selection);
-                dest.writeString(this.badge);
-                dest.writeString(this.label);
-                dest.writeParcelable(this.watch_button, flags);
-                dest.writeParcelable(this.follow_button, flags);
-                dest.writeString(this.selection_style);
-                dest.writeTypedList(this.episodes);
-                dest.writeTypedList(this.episodes_new);
-            }
-
-            public ItemsBean() {
-            }
-
-            protected ItemsBean(Parcel in) {
-                this.title = in.readString();
-                this.cover = in.readString();
-                this.uri = in.readString();
-                this.param = in.readString();
-                this.gotoX = in.readString();
-                this.ptime = in.readInt();
-                this.season_id = in.readInt();
-                this.season_type = in.readInt();
-                this.season_type_name = in.readString();
-                this.media_type = in.readInt();
-                this.style = in.readString();
-                this.cv = in.readString();
-                this.rating = in.readDouble();
-                this.vote = in.readInt();
-                this.area = in.readString();
-                this.staff = in.readString();
-                this.is_selection = in.readInt();
-                this.badge = in.readString();
-                this.label = in.readString();
-                this.watch_button = in.readParcelable(WatchButtonBean.class.getClassLoader());
-                this.follow_button = in.readParcelable(FollowButtonBean.class.getClassLoader());
-                this.selection_style = in.readString();
-                this.episodes = in.createTypedArrayList(EpisodesBean.CREATOR);
-                this.episodes_new = in.createTypedArrayList(EpisodesNewBean.CREATOR);
-            }
-
-            public static final Parcelable.Creator<ItemsBean> CREATOR = new Parcelable.Creator<ItemsBean>() {
-                @Override
-                public ItemsBean createFromParcel(Parcel source) {
-                    return new ItemsBean(source);
-                }
-
-                @Override
-                public ItemsBean[] newArray(int size) {
-                    return new ItemsBean[size];
-                }
-            };
         }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(this.trackid);
-            dest.writeInt(this.pages);
-            dest.writeInt(this.total);
-            dest.writeTypedList(this.items);
-        }
-
-        public DataBean() {
-        }
-
-        protected DataBean(Parcel in) {
-            this.trackid = in.readString();
-            this.pages = in.readInt();
-            this.total = in.readInt();
-            this.items = in.createTypedArrayList(ItemsBean.CREATOR);
-        }
-
-        public static final Parcelable.Creator<DataBean> CREATOR = new Parcelable.Creator<DataBean>() {
-            @Override
-            public DataBean createFromParcel(Parcel source) {
-                return new DataBean(source);
-            }
-
-            @Override
-            public DataBean[] newArray(int size) {
-                return new DataBean[size];
-            }
-        };
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.code);
-        dest.writeString(this.message);
-        dest.writeInt(this.ttl);
-        dest.writeParcelable(this.data, flags);
-    }
-
-    public SearchBangumiBean() {
-    }
-
-    protected SearchBangumiBean(Parcel in) {
-        this.code = in.readInt();
-        this.message = in.readString();
-        this.ttl = in.readInt();
-        this.data = in.readParcelable(DataBean.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<SearchBangumiBean> CREATOR = new Parcelable.Creator<SearchBangumiBean>() {
-        @Override
-        public SearchBangumiBean createFromParcel(Parcel source) {
-            return new SearchBangumiBean(source);
-        }
-
-        @Override
-        public SearchBangumiBean[] newArray(int size) {
-            return new SearchBangumiBean[size];
-        }
-    };
 }
