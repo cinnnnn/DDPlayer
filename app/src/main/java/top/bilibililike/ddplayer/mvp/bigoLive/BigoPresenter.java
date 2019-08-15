@@ -9,7 +9,6 @@ public class BigoPresenter {
     private IBigoView mBigoView;
     private IBigoModel mBigoModel;
     private List<String> urlList;
-    private List<BigoLiveBean> bigoList;
     public BigoPresenter(IBigoView bigoView){
         this.mBigoView = bigoView;
         this.mBigoModel = new BigoModel(this);
@@ -27,15 +26,7 @@ public class BigoPresenter {
 
     public void getDataSuccess(BigoLiveBean liveBean,boolean isRefresh){
         System.out.println(Thread.currentThread());
-        if (bigoList != null ){
-            bigoList.add(liveBean);
-        }else {
-            bigoList = new ArrayList<>();
-            bigoList.add(liveBean);
-        }
-        if (bigoList.size() == urlList.size()){
-            mBigoView.getDataListSuccess(bigoList,isRefresh);
-        }
+        mBigoView.getDataListSuccess(liveBean,isRefresh);
     }
 
     public void getDataFailed(){
