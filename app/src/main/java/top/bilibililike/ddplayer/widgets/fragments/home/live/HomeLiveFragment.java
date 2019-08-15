@@ -32,6 +32,7 @@ public class HomeLiveFragment extends BaseFragment implements IBigoView,BigoLive
 
     private List<String> roomIDList;
     private List<BigoLiveBean> useFulList;
+    private int addedItem;
     private BigoPresenter mPresenter;
     private BigoLiveRecyAdapter mAdapter;
 
@@ -49,6 +50,9 @@ public class HomeLiveFragment extends BaseFragment implements IBigoView,BigoLive
             roomIDList.add("314024456");//Kronicle09不知道转谁的
             roomIDList.add("Troogle");//Meaqua Troogle每次都搬
 
+            roomIDList.add("302045278");//彩虹社的转播（社畜）
+            roomIDList.add("302203804");//id张金华 狗狗的转播Man
+
 
 
         }
@@ -65,6 +69,7 @@ public class HomeLiveFragment extends BaseFragment implements IBigoView,BigoLive
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                useFulList.clear();
                 loadData(true);
             }
         });
@@ -74,6 +79,9 @@ public class HomeLiveFragment extends BaseFragment implements IBigoView,BigoLive
     }
 
     private void initData() {
+        if (useFulList == null) {
+            useFulList = new ArrayList<>();
+        }
         mPresenter = new BigoPresenter(this);
         loadData(false);
     }
@@ -100,24 +108,22 @@ public class HomeLiveFragment extends BaseFragment implements IBigoView,BigoLive
     }
 
     @Override
-    public void getDataListSuccess(List<BigoLiveBean> bigoList, boolean isRefresh) {
-        Toast.makeText(getActivity(),"拿到数据了",Toast.LENGTH_SHORT).show();
-        if (isRefresh) {
+    public void getDataListSuccess(BigoLiveBean bigoBean, boolean isRefresh) {
+        boolean isFinish = false;
+        if (isRefresh && addedItem == roomIDList.size()) {
+            Toast.makeText(getActivity(),"全部加载完毕",Toast.LENGTH_SHORT).show();
+            addedItem = 0;
+            isFinish  =true;
             refreshLayout.finishRefresh(true);
         }
-        List<BigoLiveBean> useFulBean = new ArrayList<>();
-        for (BigoLiveBean bean : bigoList) {
-            if ((bean.getVideoSrc() == null) || (bean.getVideoSrc().equals(""))) {
+        addedItem++;
+
+            if ((bigoBean.getVideoSrc() == null) || (bigoBean.getVideoSrc().equals(""))) {
 
             } else {
-                useFulBean.add(bean);
+                this.useFulList.add(bigoBean);
             }
-        }
-        Toast.makeText(getActivity(), "共收录 " + roomIDList.size() + " 位转播Man\n"
-                        + "目前在线 " + useFulBean.size() + " 人"
-                , Toast.LENGTH_SHORT).show();
-        mAdapter.notifyDataSetChange(useFulBean);
-        this.useFulList = useFulBean;
+        mAdapter.notifyDataSetChange(this.useFulList,isFinish);
     }
 
     @Override

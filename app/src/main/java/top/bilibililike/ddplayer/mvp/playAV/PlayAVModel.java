@@ -236,22 +236,19 @@ public class PlayAVModel implements IPlayAVModel {
         avService.getOverSeasDetail()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<BangumiDetailBean, BangumiDetailBean>() {
-                    @Override
-                    public BangumiDetailBean apply(BangumiDetailBean bangumiDetailBean) throws Exception {
-                        if (bangumiDetailBean.getCode() == 0) {
-                            if (bangumiDetailBean.getResult().getLimit() == null) {
-                                mPresenter.getBangumiDetailSuccess(bangumiDetailBean.getResult());
-                                return bangumiDetailBean;
-                            } else {
-                                mPresenter.getBangumiDetailFailed(bangumiDetailBean.getResult().getLimit().getContent());
-                            }
+                .map(bangumiDetailBean -> {
+                    if (bangumiDetailBean.getCode() == 0) {
+                        if (bangumiDetailBean.getResult().getLimit() == null) {
+                            mPresenter.getBangumiDetailSuccess(bangumiDetailBean.getResult());
+                            return bangumiDetailBean;
                         } else {
-                            mPresenter.getBangumiDetailFailed(bangumiDetailBean.getMessage());
-                            return null;
+                            mPresenter.getBangumiDetailFailed(bangumiDetailBean.getResult().getLimit().getContent());
                         }
+                    } else {
+                        mPresenter.getBangumiDetailFailed(bangumiDetailBean.getMessage());
                         return null;
                     }
+                    return null;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
@@ -259,12 +256,12 @@ public class PlayAVModel implements IPlayAVModel {
                     Log.d("PlayAvModel FlatMapThre", Thread.currentThread().toString());
                     if (bangumiDetailBean.getCode() == 0) {
                         if (bangumiDetailBean.getResult().getLimit() == null) {
-                            HashMap<String, String> hashMap = new HashMap<>();
-                            hashMap.put("aid", bangumiDetailBean.getResult().getEpisodes().get(index).getAid() + "");
-                            hashMap.put("cid", bangumiDetailBean.getResult().getEpisodes().get(index).getCid() + "");
-                            hashMap.put("otype", "json");
-                            hashMap.put("module", "bangumi");
-                            getInterceptor.replaceParam(hashMap);
+                                HashMap<String, String> hashMap = new HashMap<>();
+                                hashMap.put("aid", bangumiDetailBean.getResult().getEpisodes().get(index).getAid() + "");
+                                hashMap.put("cid", bangumiDetailBean.getResult().getEpisodes().get(index).getCid() + "");
+                                hashMap.put("otype", "json");
+                                hashMap.put("module", "bangumi");
+                                getInterceptor.replaceParam(hashMap);
                             return avService.getOverseasUrl();
                         } else {
                             mPresenter.getOverseasBangumi(season, index);
@@ -280,10 +277,16 @@ public class PlayAVModel implements IPlayAVModel {
                     if (urlBean.getCode() == 0) {
                         if (urlBean.getDash() != null) {
                             mPresenter.getBangumiUrlSuccess(urlBean.getDash());
-                        } else if (urlBean.getDurl() != null) {
+                        } else if (urlBean.getDurl() != null ) {
                             mPresenter.getBangumiUrlSuccess(urlBean.getDurl());
                         }
-                    } else {
+                    } else if (urlBean.getCode() == -10403){
+                        //大会员限制
+                        mPresenter.getBangumiUrlFailed("大会员限制");
+                        /*mPresenter.getOverseasBangumi(season, index);*/
+                        return urlBean;
+
+                    }else {
                         mPresenter.getBangumiUrlFailed(urlBean.getMessage());
                         return urlBean;
                     }

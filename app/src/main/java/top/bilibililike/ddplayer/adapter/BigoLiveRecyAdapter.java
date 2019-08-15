@@ -73,10 +73,12 @@ public class BigoLiveRecyAdapter extends RecyclerView.Adapter<BigoLiveRecyAdapte
     }
 
 
-    public void notifyDataSetChange(List<BigoLiveBean> dataList) {
+    public void notifyDataSetChange(List<BigoLiveBean> dataList,boolean isFinish) {
         this.bigoLiveBeanList = dataList;
         notifyDataSetChanged();
     }
+
+
 
     public void unBind(){
         unbinder.unbind();
