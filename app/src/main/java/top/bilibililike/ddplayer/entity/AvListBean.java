@@ -4,7 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class AvListBean  {
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+
+public class AvListBean {
 
 
     /**
@@ -50,6 +53,8 @@ public class AvListBean  {
     public void setData(DataBean data) {
         this.data = data;
     }
+
+
 
     public static class DataBean {
         /**

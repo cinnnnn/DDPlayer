@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import top.bilibililike.ddplayer.R;
@@ -89,8 +91,9 @@ public abstract class BaseRecycleViewAdapter<T> extends RecyclerView.Adapter {
         }
     }
 
+    @NotNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         if (viewType == TYPE_HEADER) {
             return getRecycleViewHeaderHolder(LayoutInflater.from(mContext).inflate(getViewHeaderResource(), parent, false));
         } else if (viewType == TYPE_FOOTER) {

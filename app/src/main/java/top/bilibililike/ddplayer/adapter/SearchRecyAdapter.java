@@ -137,6 +137,13 @@ public class SearchRecyAdapter extends RecyclerView.Adapter<SearchRecyAdapter.Vi
                     holder.txvCid5.setText(itemsBean.getEpisodes().get(4).getIndex());
                     holder.txvCid6.setText(itemsBean.getEpisodes().get(5).getIndex());;
                 }
+            }else {
+                holder.txvCid1.setVisibility(View.INVISIBLE);
+                holder.txvCid2.setVisibility(View.INVISIBLE);
+                holder.txvCid3.setVisibility(View.INVISIBLE);
+                holder.txvCid4.setVisibility(View.INVISIBLE);
+                holder.txvCid5.setVisibility(View.INVISIBLE);
+                holder.txvCid6.setVisibility(View.INVISIBLE);
             }
 
 

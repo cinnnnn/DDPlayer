@@ -4,6 +4,7 @@ import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import top.bilibililike.ddplayer.entity.LoginBean;
 import top.bilibililike.ddplayer.entity.TokenBean;
@@ -22,6 +23,8 @@ public interface LoginService {
     Observable<LoginBean> login(@Field("username") String username,
                                 @Field("password") String password);
 
+    @GET
+    Call<LoginBean> call();
 
 
 }

@@ -1,12 +1,8 @@
 package top.bilibililike.ddplayer.mvp.playAV;
 
-import android.media.session.PlaybackState;
 import android.util.Log;
-
 import java.util.HashMap;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -68,7 +64,7 @@ public class PlayAVModel implements IPlayAVModel {
                     }
                 })
                 .observeOn(Schedulers.io())
-                .flatMap((Function<AVDetailBean, Observable<AVUrlBean>>) avDetailBean -> {
+                .flatMap( (Function<AVDetailBean, Observable<AVUrlBean>>) avDetailBean -> {
                     Log.d("Playav flatMap", "flatMapStart");
                     OkHttpClient urlClient = new OkHttpClient.Builder()
                             .addInterceptor(new AVUrlInterceptor(avDetailBean.getData().getAid() + "", avDetailBean.getData().getCid() + ""))
